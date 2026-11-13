@@ -1,0 +1,716 @@
+import heroPohangImg from '../assets/images/hero_pohang_moving_1794550165555.jpg';
+import packingHomeImg from '../assets/images/service_packing_home_1794550166782.jpg';
+import oneroomTruckImg from '../assets/images/service_oneroom_truck_1794550167067.jpg';
+import officeStorageImg from '../assets/images/service_office_storage_1794550166645.jpg';
+import ladderTruckImg from '../assets/images/service_ladder_truck_1794550167559.jpg';
+import {
+  BranchInfo,
+  CustomerReview,
+  GalleryCase,
+  MovingServiceInfo,
+} from '../types';
+
+export const COMPANY_INFO = {
+  name: '예스이사',
+  englishName: 'Yes Moving',
+  ceo: '정창훈',
+  businessNumber: '768-26-01008',
+  freightLicense: '제5020000-2006-03-04019호',
+  insuranceAmount: '최대 5억원 적재물배상책임보험',
+  address: '경상북도 포항시 북구 흥해읍 달전로 24',
+  phoneMain: '1688-0450',
+  phoneOffice: '054-251-1234',
+  phoneDirect: '010-5608-2424',
+  hours: '365일 연중무휴 08:00 ~ 20:00',
+  logoUrl:
+    'https://lh3.googleusercontent.com/aida/AEtjO1VN_uXEDT4v2PG-zNaWHgC_1X_950SBdyyOyRXNNFeH6gzq1nWvJjdVTNNLjXMnOMQZjAwmyMQg1b45yYRz90US9S-nI4o5OR6TNO1fx1ZCwtLj_oo-ZHBBN52k_OHwdErQ2CuvzYDOt-H2syub2VT-P36W7AvjyS1rjXxM0aFbETijHwld_euH7mTZ6LUaajDx2Lby37Z4--vgc-MQgCKI2jrnyss6g5DuNMy6tg8V_GTRgVdJ6b3IHwa9',
+  emblemUrl:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuBuGK66lSzYMyNvaANHz0AHYXDdpHd47F3H4ARk_sW0epdvEl4hstJPNI8O4O2xZd9BnGmpQkJrp0p85klVycjlENOBB52KnyK60oucBHOS9qgNCYtNcvPJqH8FM2cJQ-HSXOmv-Z3gV7yavB6_YY-AzBJTUPAgWs1p5poNbXx2WiU39KHYj88YKXmh7bB7e_KmDFFMlCCLmljgebcgz4k3FmR3zvCaTq4nvp7RsPWditE9XMwGyXgx8w',
+  businessLicenseDocUrl:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuDz5oKIAdoXNAGCIMmoBsjvOSQRS06-OZBxanZbplzfdU7-eZC8BpbvEdtY2jxrogrxrLqNeK9skLBMcgATDkPvzj7pOAQVN0G26iAdFXV4aLMncVRvHkIRMNuhHdz-0dvLhCycFJLpIfkfuFYT19RZ1RRyEi59shF2HCxd3VakuTQBmbIkQ3BGIbaf5az_iLFulufIkCvut6VXQGAQzmfNXCMMDn99e9SIgbzJhBzDyUZ3zWyEMJxGYg',
+  womanEnterpriseDocUrl:
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAm5jL3-Y64rWjZZ9-eND9JuxGEAtuf90apXQSXtNJB39Jl0qJmjU8UU991f9HC22jFIaPyNKYeoVbO5_bjNhdE7hCAV1_cyZ6gKfPYZDnnViWko0C279LGVisFsuPaF4WiVg5hz3o3pR_nu4FN74C7ZTrG6wggybOVGr1BtlYuf7KcbjHKLxiomhXvIGpMXD0ZiXhUWKDgA-Gq619FqdUL2EUshWPHTSCRrF14JjlFvgzOcyhZnntd8w',
+};
+
+export const LOCAL_IMAGES = {
+  heroPohang: heroPohangImg,
+  packingHome: packingHomeImg,
+  oneroomTruck: oneroomTruckImg,
+  officeStorage: officeStorageImg,
+  ladderTruck: ladderTruckImg,
+};
+
+export const MOVING_SERVICES: MovingServiceInfo[] = [
+  {
+    id: 'premium',
+    anchorId: 'svc-premium',
+    number: '01',
+    badge: '고객 만족 1위',
+    subtitle: '가정집 · 아파트 · 빌라 전문',
+    title: '프리미엄 포장이사',
+    quoteType: '가정포장이사',
+    description:
+      '짐 정리부터 포장, 운송, 가구 조립 및 배치, 피톤치드 살균 청소까지 모든 과정을 전문 베테랑 팀이 원스톱으로 처리하는 예스이사 대표 솔루션입니다.',
+    image: heroPohangImg,
+    fallbackImage: packingHomeImg,
+    imageAlt: '예스이사 프리미엄 가정포장이사 현장 바닥 보양 및 가구 보호 포장',
+    imageTag: '원스톱 풀케어',
+    imageHeadline: '흠집 없는 100% 완벽 보양 시스템',
+    features: [
+      {
+        iconName: 'bed',
+        title: '매트리스 2중 항균 포장',
+        description: '오염 방지 1회용 항균 비닐 + 전용 두꺼운 커버 밀폐 패킹',
+        accentColor: 'text-primary',
+      },
+      {
+        iconName: 'kitchen',
+        title: '냉장고 아이스박스 보관',
+        description: '식품 신선도 유지 전용 냉매 아이스박스 및 내부 스팀 살균',
+        accentColor: 'text-badge-certified-blue',
+      },
+      {
+        iconName: 'checkroom',
+        title: '의류 전용 행거박스 패킹',
+        description: '구김 없이 옷걸이 채로 이동 후 기존 옷장·행거 원위치 정리',
+        accentColor: 'text-tertiary',
+      },
+      {
+        iconName: 'layers',
+        title: '바닥 보양재 & 덧신 시공',
+        description: '현관 및 거실 강화마루 보호 패드 설치 후 전 작업자 덧신 착용',
+        accentColor: 'text-secondary',
+      },
+      {
+        iconName: 'eco',
+        title: '피톤치드 항균 연무 소독 마무리',
+        description: '가구 배치 및 바닥 스팀 청소 후 온 집안 피톤치드 살균 탈취 서비스 무상 제공',
+        accentColor: 'text-safety-green',
+      },
+    ],
+    footerNote: '5톤 탑차 + 전문인력 패키지 구성',
+  },
+  {
+    id: 'standard',
+    anchorId: 'svc-standard',
+    number: '02',
+    badge: '실속형 이사',
+    subtitle: '소형 가구 자가포장 고객 추천',
+    title: '실속 맞춤 일반이사',
+    quoteType: '일반이사',
+    description:
+      '잔짐과 소형 물품은 고객님께서 직접 정리하시고, 운반이 까다로운 냉장고, 세탁기, 침대, 옷장 등 대형 가구·가전만 예스이사 전문팀이 안전하게 포장 운송해 드리는 경제적인 서비스입니다.',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuA3IFn4sIhm_jgjGOp9OoNjSgu1h2porGnJKsZeI8wukohqAqHATpWTG5M52AzMgtaBd9eXJY74PasyAgtyqP7uHAyWkY094gcgCswd2PWMVf7ioUIGWvz_J6QZYTFdHEK8dHSd7igxyGJ7QsXykGQ5F7PahCTS8D9ao901I_OvW3N3f5aTN2L6Xifbt7hCveBn6GyLP_Xmi1ynxIK1THO9V-BKMHV_QGIR5vPn9Ei-',
+    fallbackImage: heroPohangImg,
+    imageAlt: '대형 가전 및 가구 누비 패딩 포장 후 전용 탑차 결속 작업',
+    imageTag: '합리적 비용 절감',
+    imageHeadline: '대형 가전·가구 안전 특수 패킹',
+    features: [
+      {
+        iconName: 'all_inbox',
+        title: '전용 이사 바구니 & 박스 사전 대여',
+        description: '이사 3~7일 전 튼튼한 플라스틱 바구니와 테이프, 완충재를 댁으로 사전 배송해 드립니다.',
+        accentColor: 'text-primary',
+      },
+      {
+        iconName: 'handyman',
+        title: '대형 가전/가구 분해 결합 및 안전 운반',
+        description: '침대 프레임 분해, 장롱 수평 조절, 가전 전용 누비 패딩 포장까지 전담합니다.',
+        accentColor: 'text-secondary',
+      },
+      {
+        iconName: 'savings',
+        title: '포장이사 대비 합리적인 인건비 절감',
+        description: '필요 인력만 투입하는 실속 구성으로 이사 비용 부담을 대폭 낮춥니다.',
+        accentColor: 'text-badge-certified-blue',
+      },
+    ],
+    footerNote: '바구니 무료 대여 + 대형물품 전용 보양 포함',
+  },
+  {
+    id: 'oneroom',
+    anchorId: 'svc-oneroom',
+    number: '03',
+    badge: '1인가구 특화',
+    subtitle: '원룸 · 오피스텔 · 청년·직장인',
+    title: '원룸·용달 소형이사',
+    quoteType: '원룸소형이사',
+    description:
+      '대학생, 사회초년생, 1인가구를 위한 알뜰 신속 이사 플랜입니다. 1톤 탑차 직영 운영으로 좁은 골목길이나 지하주차장 진입이 자유롭고, 단순운송부터 반포장까지 맞춤 선택이 가능합니다.',
+    image: oneroomTruckImg,
+    fallbackImage: heroPohangImg,
+    imageAlt: '원룸 소형이사용 재사용 전용 박스와 깔끔하게 패킹된 침구류',
+    imageTag: '1톤 특장차 직영',
+    imageHeadline: '1톤 특장차량 직영 신속 배치',
+    features: [
+      {
+        iconName: 'local_shipping',
+        title: '용달 단순운송',
+        description: '차량만 대여하여 기사님이 안전하게 목적지까지 운전 이동',
+        accentColor: 'text-primary',
+      },
+      {
+        iconName: 'handshake',
+        title: '기사님 동반도움',
+        description: '고객님과 베테랑 기사님이 함께 짐을 상하차 및 안전 운반',
+        accentColor: 'text-badge-certified-blue',
+      },
+      {
+        iconName: 'inventory_2',
+        title: '소형 반포장이사',
+        description: '기사님이 자재를 지참하여 대형 물품 포장부터 운송까지 보조',
+        accentColor: 'text-secondary',
+      },
+    ],
+    footerNote: '포항·경주 대학가 및 원룸촌 당일 신속 배차',
+  },
+  {
+    id: 'office',
+    anchorId: 'svc-office',
+    number: '04',
+    badge: '기업전담 PM',
+    subtitle: '공공기관 · 연구소 · 사옥 · 학원',
+    title: '기업·사무실·관공서 이사',
+    quoteType: '기업관공서이사',
+    description:
+      '체계적인 사전 실측 계획 수립을 통해 업무 공백을 최소화합니다. PC, 서버, 특수 장비의 정밀 포장부터 보안 문서 분류, 파티션 분해 조립 및 주말·야간 이전까지 완벽히 수행합니다.',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBKBwczjX5Hk__AfC6GIXf-O0Rrk8KUmUNvZuOJB_ZXG--QK-ODUroLIfAPPpaW7_PVCAmIf2F8h8Q0wrGsDhzLKF5utSFKsqBh3ObbQbxzYdY9HzM9-cxxX3fvWtdwSCeoq0_BCWr48H5UIrtHr5Igv3kMMr5azOGwxe203blN06c8F9inCBNh9qPB5CLJAEPRlL3Dtwv0HT19UxfH0eOBDwwfJZzlwCSNcCLoUEtd',
+    fallbackImage: officeStorageImg,
+    imageAlt: '기업 사무실 전산 장비 정전기 방지 포장 및 부서별 라벨링 현장',
+    imageTag: '업무 공백 최소화',
+    imageHeadline: '주말·야간 전담 기업 사옥 이전',
+    features: [
+      {
+        iconName: 'memory',
+        title: '전산 장비 & 서버 랙 특수 충격 흡수 패킹',
+        description: '정전기 방지 에어캡 및 하드케이스 완충재로 고가 전자기기를 안전하게 이동합니다.',
+        accentColor: 'text-primary',
+      },
+      {
+        iconName: 'label',
+        title: '부서별·좌석별 넘버링 라벨링 시스템',
+        description: '신규 사옥 도면 배치도에 따라 1:1 매칭 조립하여 다음 영업일 즉시 근무 가능 환경을 조성합니다.',
+        accentColor: 'text-secondary',
+      },
+      {
+        iconName: 'description',
+        title: '전자세금계산서 및 공공 입찰 증빙 완비',
+        description: '화물자동차운송주선사업허가증, 여성기업 확인서, 적재물보험 증권을 즉시 발급합니다.',
+        accentColor: 'text-badge-certified-blue',
+      },
+    ],
+    footerNote: '중소벤처기업부 여성기업 가점 및 관공서 정산 완비',
+  },
+  {
+    id: 'storage',
+    anchorId: 'svc-storage',
+    number: '05',
+    badge: '24시 보안 창고',
+    subtitle: '인테리어 공사 · 입주일 불일치 · 해외체류',
+    title: '항온항습 안심 보관이사',
+    quoteType: '보관이사',
+    description:
+      '새 아파트 입주 일정이 맞지 않거나 주택 리모델링 공사 중일 때, 포장된 이삿짐을 전용 컨테이너에 안전하게 봉인하여 원하는 입주 날짜까지 최적의 상태로 보관 후 재배치해 드립니다.',
+    image: officeStorageImg,
+    fallbackImage: heroPohangImg,
+    imageAlt: '항온항습 및 24시간 CCTV가 가동되는 예스이사 실내 전용 컨테이너 보관창고',
+    imageTag: '단독 컨테이너 봉인',
+    imageHeadline: '도난·습기 걱정 없는 전용 보관',
+    features: [
+      {
+        iconName: 'ac_unit',
+        title: '사계절 항온·항습 제어',
+        description: '가구 뒤틀림이나 곰팡이, 결로를 방지하는 실내 공조 설비 가동',
+        accentColor: 'text-badge-certified-blue',
+      },
+      {
+        iconName: 'videocam',
+        title: '24시간 보안 CCTV & 정기 방역',
+        description: '철저한 무인 보안 경비망 및 해충 방지 살균 소독 시스템',
+        accentColor: 'text-primary',
+      },
+      {
+        iconName: 'lock',
+        title: '단독 밀폐 컨테이너 봉인',
+        description: '고객님 전용 고유 시리얼 넘버 봉인씰(Seal) 부착 후 인도',
+        accentColor: 'text-secondary',
+      },
+      {
+        iconName: 'event_repeat',
+        title: '2회 왕복 포장·운송 케어',
+        description: '입고 시 1차 포장 + 출고 시 2차 최종 배치 및 스팀 정리 마무리',
+        accentColor: 'text-tertiary',
+      },
+    ],
+    footerNote: '단기 3일 ~ 장기 수개월 맞춤 보관 요금제',
+  },
+  {
+    id: 'ladder',
+    anchorId: 'svc-ladder',
+    number: '06',
+    badge: '직영 장비 보유',
+    subtitle: '포항 · 경주 · 영덕 · 울진 전지역 직배차',
+    title: '최신 고층 사다리차 직영 시스템',
+    quoteType: '가정포장이사',
+    description:
+      '하청 외주 없이 예스이사가 직접 보유한 최신형 사다리차 라인업을 통해 2층 저층 빌라부터 25층 이상 초고층 신축 아파트까지 엘리베이터 손상 없이 신속하고 안전하게 중량물을 양중합니다.',
+    image: ladderTruckImg,
+    fallbackImage: heroPohangImg,
+    imageAlt: '포항 아파트 단지 앞에서 고층 발코니로 작업 중인 예스이사 직영 사다리차',
+    imageTag: '자체 장비 직영',
+    imageHeadline: '2층~25층 전 구간 사다리차 직접 배차',
+    features: [
+      {
+        iconName: 'verified',
+        title: '2층부터 25층 초고층 전용 차량 보유',
+        description: '고층 강풍 안전 감지 센서 및 전자동 완충 턴테이블이 탑재된 최신 설비만 가동합니다.',
+        accentColor: 'text-primary',
+      },
+      {
+        iconName: 'engineering',
+        title: '장비조종 전문 베테랑 기사 탑승',
+        description: '사고 없는 양중을 위해 10년 이상 무사고 전문 기술자가 현장 지반 및 각도를 정밀 세팅합니다.',
+        accentColor: 'text-secondary',
+      },
+      {
+        iconName: 'paid',
+        title: '중간 수수료 없는 직영 배차 원가 공급',
+        description: '알선 플랫폼의 불필요한 중개 수수료 없이 정직하고 투명한 직영 요금으로 제공합니다.',
+        accentColor: 'text-safety-green',
+      },
+    ],
+    footerNote: '사다리차 단독 지원 및 현장 긴급 배차 가능',
+  },
+];
+
+export const PROCESS_STEPS = [
+  {
+    step: 'STEP 01',
+    iconName: 'assignment',
+    title: '무료 방문견적 및 계약서 작성',
+    description:
+      '현장 물량 정밀 측정, 사다리차 진입로 확인, 특수 가전 파악 후 정부표준서식 안심 계약서 체결(추가비용 없음 명시).',
+    badge: '투명한 실견적 보장',
+  },
+  {
+    step: 'STEP 02',
+    iconName: 'layers',
+    title: '출발지 바닥·벽면 보양재 시공',
+    description:
+      '작업 시작 전 거실, 현관, 엘리베이터 동선에 충격 흡수 바닥재를 빈틈없이 깔고 작업 인원 전원 전용 위생 덧신 착용.',
+    badge: '시설물 흠집 사전 방지',
+  },
+  {
+    step: 'STEP 03',
+    iconName: 'package_2',
+    title: '품목별 위생 패킹 & 아이스 보관',
+    description:
+      '침대 매트리스 항균 비닐 밀폐, 냉장고 음식물 아이스박스 냉장 보관, 의류 행거박스, 그릇 완충재 낱개 에어캡 완벽 포장.',
+    badge: '철저한 청결 관리',
+  },
+  {
+    step: 'STEP 04',
+    iconName: 'local_shipping',
+    title: '안전 운송 & 실시간 위치 관제',
+    description:
+      '적재물배상책임보험 5억원 가입 정품 탑차에 물품 결속 후 급출발·급제동 없는 안전 정속 주행으로 목적지 이동.',
+    badge: '도착 예정시간 실시간 소통',
+  },
+  {
+    step: 'STEP 05',
+    iconName: 'tune',
+    title: '가구 정밀 배치 및 전자제품 조립',
+    description:
+      '도착지 바닥 2차 보양 후 고객 지정 위치에 침대, 장롱, 가구 수평 조절 안착. 세탁기 급수 호스 연결 및 액자/커튼 기본 탈부착.',
+    badge: '오차 없는 1:1 위치 세팅',
+  },
+  {
+    step: 'STEP 06',
+    iconName: 'cleaning_services',
+    title: '피톤치드 살균 소독 & 스팀 청소',
+    description:
+      '냉장고 내부 살균 세척, 싱크대 정리, 바닥 진공 및 고온 스팀 청소기 시공 후 전 구역 피톤치드 연무 분사로 상쾌하게 마무리.',
+    badge: '즉시 일상생활 가능',
+  },
+];
+
+export const COMPARISON_ROWS = [
+  {
+    item: '모든 물품 전문 포장',
+    premium: '전체 포장',
+    standard: '대형가전/가구만',
+    oneroom: '옵션 선택형',
+    storage: '2회 입·출고 포장',
+  },
+  {
+    item: '바닥 및 벽면 안심 보양',
+    premium: '완벽 시공',
+    standard: '주요 이동로 지원',
+    oneroom: '필요시 적용',
+    storage: '완벽 시공',
+  },
+  {
+    item: '가구/가전 배치 & 수평조절',
+    premium: '기본 포함',
+    standard: '대형가구만 안착',
+    oneroom: '도움 요청시',
+    storage: '출고시 최종 안착',
+  },
+  {
+    item: '냉장고 아이스박스 보관 & 청소',
+    premium: '전용 아이스박스+살균',
+    standard: '미포함',
+    oneroom: '옵션 추가',
+    storage: '보관 전 소독',
+  },
+  {
+    item: '바닥 스팀 청소 & 쓰레기 정리',
+    premium: '기본 제공',
+    standard: '빗자루 간이정리',
+    oneroom: '미포함',
+    storage: '출고 시 제공',
+  },
+  {
+    item: '피톤치드 연무 탈취 서비스',
+    premium: '무료 시공',
+    standard: '옵션 선택',
+    oneroom: '옵션 선택',
+    storage: '무료 시공',
+  },
+];
+
+export const GALLERY_CASES: GalleryCase[] = [
+  {
+    id: 'case-1',
+    title: '포항 북구 두호 SK뷰 34평 포장이사',
+    category: '가정포장이사',
+    region: '포항시',
+    route: '포항 남구 자이 → 북구 두호 SK뷰',
+    date: '2026.10.28',
+    truckInfo: '5톤 탑차 1대 + 1톤 보조 1대',
+    crewInfo: '정직원 남성 3명 + 주방정리팀 1명',
+    rating: 5.0,
+    image: heroPohangImg,
+    fallbackImage: packingHomeImg,
+    summary: '신축 입주 아파트 마루 보양재 전면 시공 및 양문형 냉장고·스타일러 무흠집 이전 완료.',
+    highlights: [
+      '거실·복도·안방 롤 플로어 보양재 100% 설치',
+      '아기 침대 및 원목 식탁 전용 맞춤 완충 패킹',
+      '주방 식기류 고온 살균 행주 정리 및 수납장 라벨 배치',
+      '마무리 피톤치드 연무 소독 및 바닥 스팀 청소',
+    ],
+    customerComment:
+      '아기 침대랑 양문형 냉장고 스크래치 날까 봐 걱정이 태산이었는데 바닥 보양재부터 전용 패딩까지 빈틈없이 씌워주셔서 감탄했습니다.',
+    customerName: '김*혜 님',
+  },
+  {
+    id: 'case-2',
+    title: '포항 초곡지구 22층 고층 사다리차 양중 작업',
+    category: '사다리차·특수운반',
+    region: '포항시',
+    route: '포항 흥해 초곡지구 → 장성 푸르지오',
+    date: '2026.10.22',
+    truckInfo: '5톤 탑차 + 25층 직영 사다리차',
+    crewInfo: '사다리 전문기사 1명 + 포장팀 4명',
+    rating: 5.0,
+    image: ladderTruckImg,
+    fallbackImage: heroPohangImg,
+    summary: '초고층 발코니 각도 정밀 세팅 및 돌침대·그랜드 피아노 안전 양중 시공.',
+    highlights: [
+      '강풍 감지 센서 작동 확인 후 유압 아웃리거 4점 수평 고정',
+      '엘리베이터 이용 제한 시간 없이 2시간 만에 전 물량 상차 완료',
+      '돌침대 석재 분리 전용 크레이트 운반 후 안방 수평 안착',
+    ],
+    customerComment:
+      '22층이라 걱정이 많았는데 예스이사 직영 사다리차가 직접 와서 흔들림 없이 빠르게 작업해 주셨습니다.',
+    customerName: '정*훈 님',
+  },
+  {
+    id: 'case-3',
+    title: '경주 황성동 KCC스위첸 항온항습 보관이사',
+    category: '보관이사',
+    region: '경주시',
+    route: '경주 황성동 → 45일 보관 → 경주 용강동',
+    date: '2026.10.15',
+    truckInfo: '5톤 탑차 + 단독 밀폐 컨테이너 2기',
+    crewInfo: '전담 팀장 포함 4명',
+    rating: 5.0,
+    image: officeStorageImg,
+    fallbackImage: heroPohangImg,
+    summary: '인테리어 리모델링 기간 45일 동안 가죽 소파·원목 가구 습기 변형 없이 완벽 보관 후 입주 완료.',
+    highlights: [
+      '고객 입회 하에 전용 시리얼 봉인씰(Seal) 잠금 처리',
+      '실내 제습·항온 공조 창고 보관 (습도 45% 유지)',
+      '입주 당일 2차 재포장 및 새 인테리어 마루 이중 보양',
+    ],
+    customerComment:
+      '리모델링 공사가 지연되어 보관이사를 맡겼는데, 가구에 곰팡이나 먼지 하나 없이 새것처럼 다시 들여놔 주셨습니다.',
+    customerName: '최*원 님',
+  },
+  {
+    id: 'case-4',
+    title: '포항 효자동 포항공대 인근 원룸·오피스텔 반포장',
+    category: '원룸·소형이사',
+    region: '포항시',
+    route: '포항 효자동 → 이동 현대오피스텔',
+    date: '2026.10.11',
+    truckInfo: '1톤 리프트 탑차 직영',
+    crewInfo: '기사님 + 보조인력 1명',
+    rating: 4.9,
+    image: oneroomTruckImg,
+    fallbackImage: heroPohangImg,
+    summary: '연구실 서적, 데스크톱 듀얼 모니터, 드럼세탁기까지 깔끔하게 전용 박스로 3시간 내 이전 완료.',
+    highlights: [
+      '대형 플라스틱 이동 바구니 15개 무상 대여 및 수거',
+      '모니터·본체 정전기 방지 에어캡 개별 완충 패킹',
+      '이불 압축팩 및 행거박스 무료 지원',
+    ],
+    customerComment:
+      '혼자 살아서 큰 이삿짐센터 부르기 부담스러웠는데 합리적인 비용에 꼼꼼히 챙겨주셔서 정말 편했습니다.',
+    customerName: '이*민 님',
+  },
+  {
+    id: 'case-5',
+    title: '경주 공공기관 사무실 주말 일괄 이전 프로젝트',
+    category: '기업·관공서',
+    region: '경주시',
+    route: '경주 성건동 구청사 → 현곡면 신청사',
+    date: '2026.10.04',
+    truckInfo: '5톤 탑차 3대 + 사다리차 2대',
+    crewInfo: '기업이전 전담 PM 외 12명',
+    rating: 5.0,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBKBwczjX5Hk__AfC6GIXf-O0Rrk8KUmUNvZuOJB_ZXG--QK-ODUroLIfAPPpaW7_PVCAmIf2F8h8Q0wrGsDhzLKF5utSFKsqBh3ObbQbxzYdY9HzM9-cxxX3fvWtdwSCeoq0_BCWr48H5UIrtHr5Igv3kMMr5azOGwxe203blN06c8F9inCBNh9qPB5CLJAEPRlL3Dtwv0HT19UxfH0eOBDwwfJZzlwCSNcCLoUEtd',
+    fallbackImage: officeStorageImg,
+    summary: 'PC 65대, 복합기, 보안 문서 캐비닛 40여 조를 주말 이틀 동안 도면 1:1 매칭으로 완벽 이전.',
+    highlights: [
+      '여성기업 확인서·관허 서류 기반 투명한 조달 정산',
+      '전산 장비 정전기 방지 크레이트 및 부서별 컬러 라벨링',
+      '월요일 오전 08:30 전 직원 정상 업무 즉시 개시',
+    ],
+    customerComment:
+      '문서 보안과 전산 장비 파손 우려가 컸는데 라벨링 시스템이 너무 체계적이어서 월요일 출근하자마자 바로 업무를 봤습니다.',
+    customerName: '경주 행정지원팀 담당자',
+  },
+  {
+    id: 'case-6',
+    title: '영덕 강구면 단독주택 부모님 효도 포장이사',
+    category: '가정포장이사',
+    region: '영덕군',
+    route: '영덕군 강구면 → 포항 남구 오천읍',
+    date: '2026.09.26',
+    truckInfo: '5톤 탑차 1대 + 2.5톤 1대',
+    crewInfo: '베테랑 5명 (주방정리 여사님 2명)',
+    rating: 5.0,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuA1lfSECMspTnZdmcVU3r4PhVDacN0bQsum8Va7sS4LFCJ3HPkHwZGnlFrkSLykHZSFKxDxGsSUmHrWNa6ED57uiF1R_Ew_Ddk1PDBaB-a0zrzLZISbPZ4MRAXD6JvVgcj0LeoJ83GyjrQEXhWy5_tWIqZVP8TytqTvZuUc9tI21tASe8RQ0ugqD69JtQE-TZJzbYMDcJXNpUZXi_zpBdWumnXVLRnEpXaDbhO4sHwp',
+    fallbackImage: heroPohangImg,
+    summary: '단독주택 마당 장독대, 김치냉장고 2대, 대형 원목 장롱을 어르신 눈높이에 맞춰 세심하게 정리.',
+    highlights: [
+      '항아리·장독대 전용 충격 흡수 목재 받침 포장',
+      '7번 국도 장거리 운송 흔들림 방지 라쳇 스트랩 이중 결속',
+      '어르신 약품·의류 별도 표기 박스 우선 배치',
+    ],
+    customerComment:
+      '부모님만 계셔서 불안했는데 딸처럼 살뜰하게 장독대부터 장롱 위치까지 다 맞춰주셨습니다.',
+    customerName: '박*진 님',
+  },
+  {
+    id: 'case-7',
+    title: '울진읍 주공·신축 아파트 장거리 포장이사',
+    category: '가정포장이사',
+    region: '울진군',
+    route: '울진군 울진읍 → 포항 북구 양덕동',
+    date: '2026.09.19',
+    truckInfo: '5톤 전용 탑차 + 사다리차',
+    crewInfo: '직영 크루 4명',
+    rating: 5.0,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDd0SOGIa80Dr1-jbozadWmHKuMbumYi3dXX3SN8vzt5fzQ-ZYdZ2HHR-pMVixsI3Vhv-fyeF1-mszOGH8MtHM6BiqpsOZRr3teSF65kOxfE684Xmto6ZYYC-g-dU8KD5FswdrVpcMsGwX3zFSep3dT0bCQBXUIGekTTazr8CI6rMx1X7LEM1Rn8G8Un6W6Lxf3XYfJBJVoRN4Ub0LFQD9esuXEN8i4nO7m_CBCxqE6',
+    fallbackImage: heroPohangImg,
+    summary: '울진-포항 130km 동해안 장거리 구간 유리그릇·도자기 0건 파손 무사고 이전 완료.',
+    highlights: [
+      '에어 서스펜션 장착 5톤 밀폐 탑차로 장거리 진동 최소화',
+      '신선식품 아이스박스 보냉제 추가 교체로 완벽 유지',
+      '도착 후 세탁기·건조기 직렬 연결 및 수평 체크 완료',
+    ],
+    customerComment:
+      '7번 국도 장거리 구간이라 걱정이 많았는데 유리그릇 하나 깨진 게 없네요. 정착 청소까지 깔끔했습니다.',
+    customerName: '이*준 님',
+  },
+  {
+    id: 'case-8',
+    title: '포항 지곡동 포스코 사택 42평 일반·대형가구 이사',
+    category: '사다리차·특수운반',
+    region: '포항시',
+    route: '포항 남구 지곡동 → 효자동 웰빙타운',
+    date: '2026.09.12',
+    truckInfo: '5톤 탑차 + 15층 사다리차',
+    crewInfo: '전문기사 3명',
+    rating: 4.9,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuA3IFn4sIhm_jgjGOp9OoNjSgu1h2porGnJKsZeI8wukohqAqHATpWTG5M52AzMgtaBd9eXJY74PasyAgtyqP7uHAyWkY094gcgCswd2PWMVf7ioUIGWvz_J6QZYTFdHEK8dHSd7igxyGJ7QsXykGQ5F7PahCTS8D9ao901I_OvW3N3f5aTN2L6Xifbt7hCveBn6GyLP_Xmi1ynxIK1THO9V-BKMHV_QGIR5vPn9Ei-',
+    fallbackImage: ladderTruckImg,
+    summary: '고객 자가 포장 잔짐과 대형 수입가구·전동 리클라이너 분해/조립 결합 시공.',
+    highlights: [
+      '전용 플라스틱 이사 바구니 30개 사전 무료 배송',
+      '대형 시스템 옷장 및 패밀리 침대 전문 공구 분해·재조립',
+      '추가 비용 없이 계약 금액 그대로 투명 정산',
+    ],
+    customerComment:
+      '잔짐은 직접 싸고 큰 가구만 맡겼는데도 팀장님이 가구 수평까지 딱 맞춰주셔서 만족스러웠습니다.',
+    customerName: '한*수 님',
+  },
+];
+
+export const INITIAL_REVIEWS: CustomerReview[] = [
+  {
+    id: 'rev-1',
+    route: '포항 남구 자이 → 북구 두호 SK뷰',
+    region: '포항시',
+    serviceType: '프리미엄 포장이사',
+    headline: '"바닥 보양재부터 냉장고 스팀살균까지 완벽 그 자체였어요"',
+    content:
+      '아기 침대랑 양문형 냉장고 스크래치 날까 봐 걱정이 태산이었는데, 바닥 보양재부터 전용 패딩까지 빈틈없이 씌워주셔서 감탄했습니다. 주방 이모님 정리 솜씨도 감동이었습니다.',
+    author: '김*혜 님',
+    date: '2026.10.28',
+    rating: 5,
+  },
+  {
+    id: 'rev-2',
+    route: '경주 황성동 → 안강읍',
+    region: '경주시',
+    serviceType: '프리미엄 포장이사',
+    headline: '"사다리차 작업도 신속하고 웃돈 요구 일체 없음!"',
+    content:
+      '견적 받으러 오셨을 때 계약서에 모든 추가비용 없음을 명시해주셔서 믿음이 갔습니다. 당일 비가 살짝 와서 걱정했는데 특수 방수 커버로 한 방울도 안 젖게 해주셨어요.',
+    author: '최*원 님',
+    date: '2026.10.15',
+    rating: 5,
+  },
+  {
+    id: 'rev-3',
+    route: '영덕 강구 → 포항 남구 오천',
+    region: '영덕군',
+    serviceType: '프리미엄 포장이사',
+    headline: '"영덕 시골집 부모님 이사, 딸처럼 살뜰하게"',
+    content:
+      '부모님만 계셔서 불안했는데 여성기업 인증답게 장독대부터 농기구, 무거운 장롱까지 위치 하나하나 부모님 편하시게 맞춰주셨습니다. 정말 감사드립니다.',
+    author: '박*진 님',
+    date: '2026.09.26',
+    rating: 5,
+  },
+  {
+    id: 'rev-4',
+    route: '울진 원남 → 포항 북구 양덕동',
+    region: '울진군',
+    serviceType: '프리미엄 포장이사',
+    headline: '"장거리 운송에도 유리그릇 하나 깨진 게 없네요"',
+    content:
+      '7번 국도 장거리 구간이라 걱정이 많았는데 5톤 전용탑차 서스펜션이 좋은지 흔들림 없이 안전하게 도착했습니다. 정착 청소까지 깔끔하게 해주셔서 피로가 싹 가셨네요.',
+    author: '이*준 님',
+    date: '2026.09.19',
+    rating: 5,
+  },
+  {
+    id: 'rev-5',
+    route: '포항 효자동 → 이동 오피스텔',
+    region: '포항시',
+    serviceType: '원룸·용달 소형이사',
+    headline: '"1인 가구 반포장, 빠르고 가격도 정직합니다"',
+    content:
+      '다른 곳은 1톤인데도 추가금 얘기를 하던데 예스이사는 처음 안내받은 금액 그대로 진행해 주시고 책상 조립까지 도와주셔서 감사했습니다.',
+    author: '이*민 님',
+    date: '2026.10.11',
+    rating: 5,
+  },
+  {
+    id: 'rev-6',
+    route: '경주 성건동 → 현곡면 신청사',
+    region: '경주시',
+    serviceType: '기업·관공서 이사',
+    headline: '"주말 이틀 만에 60명 규모 사무실 완벽 세팅"',
+    content:
+      '세금계산서 처리부터 여성기업 증빙 서류까지 빠짐없이 챙겨주시고 PC·모니터 파손 0건으로 월요일 바로 업무를 볼 수 있었습니다.',
+    author: '경주 행정지원팀',
+    date: '2026.10.04',
+    rating: 5,
+  },
+];
+
+export const BRANCH_LOCATIONS: BranchInfo[] = [
+  {
+    id: 'pohang',
+    name: '예스이사 포항 본사 직영센터',
+    badge: '본사 및 통합 관제센터',
+    address: '경상북도 포항시 북구 흥해읍 달전로 24',
+    coverage: ['포항시 북구 전역 (흥해·초곡·양덕·장성·두호)', '포항시 남구 전역 (이동·지곡·효자·오천·문덕)', '구룡포·연일·청하·기계'],
+    dispatchTime: '접수 후 당일 30분 내 방문 실측 가능',
+    phone: '1688-0450',
+    directPhone: '010-5608-2424',
+    hours: '365일 연중무휴 08:00 ~ 20:00',
+    description:
+      '포항IC와 흥해 우회도로가 만나는 교통 요충지에 위치하여 포항 전지역은 물론 경주·영덕·울진 전역으로 직영 탑차 및 사다리차가 신속히 출동하는 핵심 본부입니다.',
+    facilities: ['1톤~5톤 최신 밀폐 탑차 전용 차고지', '2층~25층 직영 사다리차 상시 대기', '항온·항습 실내 컨테이너 보관 창고동 완비'],
+    directionsCar: '포항IC 진입 후 흥해읍 방면 7번 국도 달전교차로 우회전 300m (대형 주차장 완비)',
+    directionsTransit: '포항시내버스 500번·107번 달전리 정류장 하차 도보 4분 / KTX 포항역 차량 8분',
+    naverMapQuery: '경상북도 포항시 북구 흥해읍 달전로 24',
+    kakaoMapQuery: '경상북도 포항시 북구 흥해읍 달전로 24',
+  },
+  {
+    id: 'gyeongju',
+    name: '예스이사 경주 직영지사',
+    badge: '경주권 전담 직영망',
+    address: '경상북도 경주시 황성동·용강동 연계 직영 배차망 (본사 통합관제)',
+    coverage: ['경주시 시내 전역 (황성·용강·동천·성건)', '외동읍·안강읍·건천읍 산업단지 및 주거지', '보문·불국동·감포'],
+    dispatchTime: '경주 전역 40분 내 방문 무료견적',
+    phone: '1688-0450',
+    directPhone: '054-251-1234',
+    hours: '365일 연중무휴 08:00 ~ 20:00',
+    description:
+      '경주시 신축 아파트 입주, 한옥·단독주택 이사, 산업단지 내 기업 및 연구소 사옥 이전을 전담하며 포항-경주 7번 국도 및 산업도로를 따라 추가 출장비 없이 직영 운행합니다.',
+    facilities: ['경주 시내권 좁은 골목 대응 1톤·2.5톤 특장차', '아파트 입주 전용 바닥·벽면 보양재 풀세트', '주말·공휴일 관공서 이전 전담 PM 배정'],
+    directionsCar: '경주 강동·안강 방면 7번 국도 및 포항-경주 간 20분 직통 연결망 운영',
+    directionsTransit: '신경주역·경주시청 권역 전담 견적 팀장 상시 순회 방문',
+    naverMapQuery: '경상북도 경주시 황성동',
+    kakaoMapQuery: '경상북도 경주시 황성동',
+  },
+  {
+    id: 'yeongdeok',
+    name: '예스이사 영덕 직영출장소',
+    badge: '동해안 중부권 직영',
+    address: '경상북도 영덕군 영덕읍·강구면 일대 직영 출동',
+    coverage: ['영덕읍·강구면·남정면', '영해면·병곡면·축산면', '포항·울진 연계 장거리 이사'],
+    dispatchTime: '사전 예약 시 당일·익일 무료 방문견적',
+    phone: '1688-0450',
+    directPhone: '010-5608-2424',
+    hours: '365일 연중무휴 08:00 ~ 20:00',
+    description:
+      '영덕군 단독주택·농어가 효도이사, 귀촌·전원주택 이사, 상가 및 관공서 이전을 전문으로 합니다. 포항 본사에서 30~40분 거리로 중간 알선 마진 없는 투명한 운임을 제공합니다.',
+    facilities: ['방풍·방수 특수 탑차 (해안가 강풍/우천 대비)', '장독대·화분·농기구 전용 완충 목재 받침 보유', '포항-영덕 고속도로 직통 급행 배차'],
+    directionsCar: '동해고속도로(포항-영덕) 및 7번 국도 강구항·영덕IC 10분 거리 연결',
+    directionsTransit: '영덕군 전 읍면 방문 실측 요청 시 포항 본사 팀장 무료 출장 방문',
+    naverMapQuery: '경상북도 영덕군 영덕읍',
+    kakaoMapQuery: '경상북도 영덕군 영덕읍',
+  },
+  {
+    id: 'uljin',
+    name: '예스이사 울진 직영출장소',
+    badge: '경북 북부 동해안 전담',
+    address: '경상북도 울진군 울진읍·죽변면·후포면 일대 직영 출동',
+    coverage: ['울진읍·죽변면 (한울원자력 사택 등)', '후포면·평해읍·근남면·매화면', '울진 ↔ 포항·대구·수도권 장거리 직통'],
+    dispatchTime: '울진 전역 무료 방문견적 (예약제 순회 실측)',
+    phone: '1688-0450',
+    directPhone: '010-5608-2424',
+    hours: '365일 연중무휴 08:00 ~ 20:00',
+    description:
+      '울진 지역 한울본부 사택 이전, 공공기관 및 일반 가정 장거리 이사에 특화되어 있습니다. 에어 서스펜션 5톤 대형 탑차로 장거리 이동 시에도 깨지기 쉬운 식기·가전을 완벽하게 보호합니다.',
+    facilities: ['장거리 전용 5톤 무진동 에어 서스펜션 탑차', '보냉 아이스박스 2중 냉매 시스템', '원거리 고객 비대면 영상·전화 정밀 견적 병행'],
+    directionsCar: '7번 국도 울진-영덕-포항 전 구간 일일 상시 물류 회차 네트워크 가동',
+    directionsTransit: '울진읍 및 죽변·후포면 전화 예약 시 당일 또는 익일 견적 팀장 방문',
+    naverMapQuery: '경상북도 울진군 울진읍',
+    kakaoMapQuery: '경상북도 울진군 울진읍',
+  },
+];

@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #f7f9ff;
+  --color-surface: #f7f9ff;
+  --color-surface-bright: #f7f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f1f4f9;
+  --color-surface-container: #ebeef3;
+  --color-surface-container-high: #e5e8ee;
+  --color-surface-container-highest: #e0e3e8;
+  --color-surface-dim: #d7dadf;
+  --color-inverse-surface: #2d3135;
+  --color-inverse-on-surface: #eef1f6;
+
+  --color-primary: #b41e16;
+  --color-primary-container: #d7392b;
+  --color-on-primary: #ffffff;
+  --color-primary-fixed: #ffdad5;
+  --color-on-primary-fixed: #410000;
+
+  --color-secondary: #4e5e7f;
+  --color-secondary-container: #c7d7fe;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #4d5d7e;
+  --color-secondary-fixed: #d7e2ff;
+  --color-on-secondary-fixed: #081b38;
+
+  --color-tertiary: #984200;
+  --color-tertiary-container: #bf5502;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-fixed: #ffdbca;
+  --color-on-tertiary-fixed: #331200;
+
+  --color-on-background: #181c20;
+  --color-on-surface: #181c20;
+  --color-on-surface-variant: #5b403c;
+  --color-slate-text-muted: #64748b;
+  --color-outline: #8f706b;
+  --color-outline-variant: #e3beb8;
+  --color-brand-border: #e5e7eb;
+
+  --color-badge-certified-bg: #edf5fc;
+  --color-badge-certified-blue: #0d5cab;
+  --color-safety-green: #16a34a;
+  --color-error: #ba1a1a;
+
+  --font-sans: "Noto Sans KR", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Noto Sans KR", sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    overscroll-behavior-y: none;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
