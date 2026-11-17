@@ -10,12 +10,22 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import { COMPANY_INFO, GALLERY_CASES, INITIAL_REVIEWS } from '../data/yesMovingData';
-import { CustomerReview, GalleryCase, PageId, QuotePrefill } from '../types';
+import {
+  COMPANY_INFO,
+  CORE_FAQS,
+  GALLERY_CASES,
+  INITIAL_REVIEWS,
+} from '../data/yesMovingData';
+import { BoardCategory, CustomerReview, GalleryCase, PageId, QuotePrefill } from '../types';
 import { SafeImage } from '../components/SafeImage';
 
 interface WorkGalleryPageProps {
-  onNavigate: (page: PageId, options?: { prefill?: QuotePrefill }) => void;
+  onNavigate: (
+    page: PageId,
+    options?: { prefill?: QuotePrefill; boardTab?: BoardCategory }
+  ) => void;
+  onOpenKakao?: () => void;
+  onTrackPhone?: () => void;
 }
 
 type CategoryFilter =
@@ -41,7 +51,11 @@ const REGIONS: RegionFilter[] = ['전체', '포항시', '경주시', '영덕군'
 
 const REVIEWS_STORAGE_KEY = 'yesmoving_customer_reviews_v1';
 
-export const WorkGalleryPage: React.FC<WorkGalleryPageProps> = ({ onNavigate }) => {
+export const WorkGalleryPage: React.FC<WorkGalleryPageProps> = ({
+  onNavigate,
+  onOpenKakao,
+  onTrackPhone,
+}) => {
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('전체');
   const [regionFilter, setRegionFilter] = useState<RegionFilter>('전체');
   const [selectedCase, setSelectedCase] = useState<GalleryCase | null>(null);
@@ -67,7 +81,7 @@ export const WorkGalleryPage: React.FC<WorkGalleryPageProps> = ({ onNavigate }) 
         }
       }
     } catch {
-      // Ignore storage parse failure
+      // Ignore storage error
     }
   }, []);
 
@@ -114,7 +128,7 @@ export const WorkGalleryPage: React.FC<WorkGalleryPageProps> = ({ onNavigate }) 
       const existing = existingRaw ? (JSON.parse(existingRaw) as CustomerReview[]) : [];
       localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify([newReview, ...existing]));
     } catch {
-      // Ignore storage errors
+      // Ignore storage error
     }
 
     setReviews((prev) => [newReview, ...prev]);
@@ -138,7 +152,7 @@ export const WorkGalleryPage: React.FC<WorkGalleryPageProps> = ({ onNavigate }) 
                 포항 · 경주 · 영덕 · 울진 작업 실사 포트폴리오
               </div>
               <h1 className="text-3xl sm:text-4xl text-on-surface font-black tracking-tight mb-3">
-                생생한 작업 현장 갤러리 & 고객 후기
+                예스이사 갤러리 · 작업현장 사례
               </h1>
               <p className="text-sm sm:text-base text-slate-text-muted leading-relaxed">
                 바닥 이중 보양재 시공부터 대형 가전 포장, 고층 사다리차 양중, 항온항습 보관창고까지
@@ -451,6 +465,43 @@ export const WorkGalleryPage: React.FC<WorkGalleryPageProps> = ({ onNavigate }) 
               </div>
             ))}
           </div>
+          {/* Compact Gallery FAQ & Board CTA */}
+          <div className="mt-10 bg-surface-container-lowest rounded-2xl p-6 sm:p-8 border border-brand-border flex flex-col gap-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <div className="text-xs font-bold text-primary mb-1">현장 사례 · 고객후기 안내</div>
+                <h2 className="text-xl font-black text-on-surface">
+                  실제 작업 사례 및 후기 관련 자주 묻는 질문
+                </h2>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => onNavigate('board', { boardTab: '고객후기' })}
+                  className="px-4 py-2 rounded-lg bg-surface-container text-xs font-bold text-on-surface hover:bg-surface-container-high cursor-pointer"
+                >
+                  고객후기·게시판 전체보기
+                </button>
+                {onOpenKakao && (
+                  <button
+                    type="button"
+                    onClick={onOpenKakao}
+                    className="px-4 py-2 rounded-lg bg-amber-400 text-xs font-bold text-on-surface hover:bg-amber-300 cursor-pointer"
+                  >
+                    카카오톡 문의
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {CORE_FAQS.filter((f) => f.id === 'faq-7' || f.id === 'faq-8').map((faq) => (
+                <div key={faq.id} className="p-4 rounded-xl bg-surface-container-low">
+                  <h3 className="text-sm font-bold text-on-surface mb-1.5">Q. {faq.question}</h3>
+                  <p className="text-xs text-slate-text-muted leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -538,6 +589,7 @@ export const WorkGalleryPage: React.FC<WorkGalleryPageProps> = ({ onNavigate }) 
             <div className="p-5 border-t border-brand-border bg-surface-container-low flex flex-wrap items-center justify-between gap-3">
               <a
                 href={`tel:${COMPANY_INFO.phoneMain}`}
+                onClick={onTrackPhone}
                 className="inline-flex items-center gap-1.5 text-sm font-black text-primary tabular-nums"
               >
                 <Phone className="w-4 h-4" />

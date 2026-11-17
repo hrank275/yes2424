@@ -20,12 +20,14 @@ import {
   X,
   ZoomIn,
 } from 'lucide-react';
-import { COMPANY_INFO } from '../data/yesMovingData';
-import { PageId } from '../types';
+import { COMPANY_INFO, CORE_FAQS } from '../data/yesMovingData';
+import { BoardCategory, PageId } from '../types';
 import { SafeImage } from '../components/SafeImage';
 
 interface CompanyCertificationPageProps {
-  onNavigate: (page: PageId) => void;
+  onNavigate: (page: PageId, options?: { boardTab?: BoardCategory }) => void;
+  onOpenKakao?: () => void;
+  onTrackPhone?: () => void;
 }
 
 interface DocumentPreview {
@@ -37,6 +39,8 @@ interface DocumentPreview {
 
 export const CompanyCertificationPage: React.FC<CompanyCertificationPageProps> = ({
   onNavigate,
+  onOpenKakao,
+  onTrackPhone,
 }) => {
   const [zoomedDoc, setZoomedDoc] = useState<DocumentPreview | null>(null);
 
@@ -48,18 +52,18 @@ export const CompanyCertificationPage: React.FC<CompanyCertificationPageProps> =
           <div className="flex flex-col items-start gap-5 max-w-4xl">
             <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-badge-certified-blue">
               <ShieldCheck className="w-4 h-4 shrink-0" />
-              <span>포항·경주·영덕·울진 관허 {COMPANY_INFO.freightLicense}</span>
+              <span>예스이사 회사소개 · 포항·경주·영덕·울진 관허 {COMPANY_INFO.freightLicense}</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl text-on-surface font-black tracking-tight leading-tight">
-              정식 관허 · 보험가입 · 여성기업 인증,
+              예스이사 회사소개 및 공식인허가,
               <br className="hidden sm:inline" /> 믿을 수 있는{' '}
-              <span className="text-primary">예스이사</span>입니다.
+              <span className="text-primary">포항이사 파트너</span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-text-muted leading-relaxed max-w-2xl">
-              무허가 불법 이사 업체의 난립 속에서 고객님의 소중한 보금자리와 재산을 투명한 계약,
-              철저한 법적 보증, 숙련된 정직원 팀워크로 완벽히 지켜드립니다.
+              포장이사·관공서이사·학교이사를 진행하기 전 반드시 확인해야 할 정식 관허증, 5억원
+              적재물배상책임보험, 중소벤처기업부 여성기업 확인서를 투명하게 공개합니다.
             </p>
 
             {/* 3 Core Certification Cards */}
@@ -640,19 +644,58 @@ export const CompanyCertificationPage: React.FC<CompanyCertificationPageProps> =
               <div className="flex flex-col gap-2.5">
                 <a
                   href={`tel:${COMPANY_INFO.phoneMain}`}
+                  onClick={onTrackPhone}
                   className="w-full py-3.5 px-5 rounded-xl bg-white text-primary hover:bg-surface-container-low text-base font-black flex items-center justify-center gap-2 transition-colors tabular-nums"
                 >
                   <Phone className="w-5 h-5" />
                   <span>{COMPANY_INFO.phoneMain} 전화 즉시 상담</span>
                 </a>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('instant-quote')}
-                  className="w-full py-3 px-5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors cursor-pointer"
-                >
-                  온라인 1분 무료 견적 신청하기
-                </button>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={onOpenKakao}
+                    className="py-3 px-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-on-surface text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    카카오톡 문의
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('instant-quote')}
+                    className="py-3 px-3 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    상담 문의하기
+                  </button>
+                </div>
               </div>
+            </div>
+          </div>
+
+          {/* Compact Company FAQ */}
+          <div className="mt-10 bg-surface-container-lowest rounded-2xl p-6 sm:p-8 border border-brand-border">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+              <div>
+                <div className="text-xs font-bold text-badge-certified-blue mb-1">
+                  회사·인증 자주 묻는 질문
+                </div>
+                <h2 className="text-xl font-black text-on-surface">
+                  공식 인허가 · 여성기업 · 적재물보험 안내 FAQ
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => onNavigate('board', { boardTab: 'FAQ' })}
+                className="text-xs font-bold text-primary hover:underline cursor-pointer"
+              >
+                FAQ 전체보기 →
+              </button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {CORE_FAQS.filter((f) => f.id === 'faq-3' || f.id === 'faq-10').map((faq) => (
+                <div key={faq.id} className="p-4 rounded-xl bg-surface-container-low">
+                  <h3 className="text-sm font-bold text-on-surface mb-1.5">Q. {faq.question}</h3>
+                  <p className="text-xs text-slate-text-muted leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -14,15 +14,25 @@ import {
   Train,
   Warehouse,
 } from 'lucide-react';
-import { BRANCH_LOCATIONS, COMPANY_INFO, LOCAL_IMAGES } from '../data/yesMovingData';
-import { BranchInfo, PageId } from '../types';
+import { BRANCH_LOCATIONS, COMPANY_INFO, CORE_FAQS, LOCAL_IMAGES } from '../data/yesMovingData';
+import { BoardCategory, BranchInfo, PageId, QuoteSubmission, RegionName } from '../types';
 import { SafeImage } from '../components/SafeImage';
 
 interface LocationContactPageProps {
-  onNavigate: (page: PageId) => void;
+  onNavigate: (page: PageId, options?: { boardTab?: BoardCategory }) => void;
+  onOpenKakao?: () => void;
+  onTrackPhone?: () => void;
+  onSubmitCallback?: (submission: QuoteSubmission) => void;
 }
 
-export const LocationContactPage: React.FC<LocationContactPageProps> = ({ onNavigate }) => {
+const QUOTES_STORAGE_KEY = 'yesmoving_quote_submissions_v1';
+
+export const LocationContactPage: React.FC<LocationContactPageProps> = ({
+  onNavigate,
+  onOpenKakao,
+  onTrackPhone,
+  onSubmitCallback,
+}) => {
   const [selectedBranchId, setSelectedBranchId] = useState<BranchInfo['id']>('pohang');
   const [copied, setCopied] = useState(false);
 
@@ -32,6 +42,7 @@ export const LocationContactPage: React.FC<LocationContactPageProps> = ({ onNavi
   const [reqRegion, setReqRegion] = useState('포항시');
   const [reqMethod, setReqMethod] = useState<'방문실측' | '전화상담'>('방문실측');
   const [reqMessage, setReqMessage] = useState('');
+  const [reqConsent, setReqConsent] = useState(true);
   const [reqSubmitted, setReqSubmitted] = useState(false);
   const [reqError, setReqError] = useState<string | null>(null);
 
@@ -55,7 +66,63 @@ export const LocationContactPage: React.FC<LocationContactPageProps> = ({ onNavi
       setReqError('성함과 연락처를 입력해 주세요.');
       return;
     }
+    if (!reqConsent) {
+      setReqError('상담 예약을 위해 개인정보 수집·이용에 동의해 주세요.');
+      return;
+    }
     setReqError(null);
+
+    const mappedRegion: RegionName =
+      reqRegion === '경주시'
+        ? '경주시'
+        : reqRegion === '영덕군'
+        ? '영덕군'
+        : reqRegion === '울진군'
+        ? '울진군'
+        : '포항시 북구';
+
+    const newSubmission: QuoteSubmission = {
+      id: `V-${Date.now().toString().slice(-6)}`,
+      createdAt: new Date().toLocaleString('ko-KR'),
+      status: '접수대기',
+      source: '방문상담예약',
+      movingType: '가정포장이사',
+      startRegion: mappedRegion,
+      startDetail: `${reqRegion} (${reqMethod})`,
+      startHousing: '아파트',
+      startFloor: '-',
+      startTransport: '엘리베이터',
+      endRegion: mappedRegion,
+      endDetail: '방문실측 시 확인',
+      endHousing: '아파트',
+      endFloor: '-',
+      endTransport: '엘리베이터',
+      homeSize: '20~30평대',
+      movingDate: '상담 시 조율',
+      movingTime: '상담 시 협의',
+      customerName: reqName.trim(),
+      customerPhone: reqPhone.trim(),
+      specialItems: [],
+      memo: reqMessage.trim() || `${reqMethod} 희망`,
+      estimatedRange: '무료 방문 실측 안내',
+      recommendedTruck: '맞춤 배차',
+    };
+
+    if (onSubmitCallback) {
+      onSubmitCallback(newSubmission);
+    } else {
+      try {
+        const existingRaw = localStorage.getItem(QUOTES_STORAGE_KEY);
+        const existing = existingRaw ? (JSON.parse(existingRaw) as QuoteSubmission[]) : [];
+        localStorage.setItem(
+          QUOTES_STORAGE_KEY,
+          JSON.stringify([newSubmission, ...existing].slice(0, 30))
+        );
+      } catch {
+        // Ignore storage error
+      }
+    }
+
     setReqSubmitted(true);
   };
 
@@ -71,7 +138,7 @@ export const LocationContactPage: React.FC<LocationContactPageProps> = ({ onNavi
                 <span>포항 본사 · 경주 · 영덕 · 울진 통합 직영 네트워크</span>
               </div>
               <h1 className="text-3xl sm:text-4xl text-on-surface font-black tracking-tight mb-3">
-                오시는 길 & 권역별 직영 안내
+                예스이사 오시는 길 · 포항 본사 및 직영지사
               </h1>
               <p className="text-sm sm:text-base text-slate-text-muted leading-relaxed">
                 포항시 북구 흥해읍 본사 및 전용 차고지·보관 창고를 거점으로 경주, 영덕, 울진
@@ -207,17 +274,17 @@ export const LocationContactPage: React.FC<LocationContactPageProps> = ({ onNavi
                 </div>
 
                 {/* External Map App Links */}
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   <a
                     href={`https://map.naver.com/p/search/${encodeURIComponent(
                       selectedBranch.naverMapQuery
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2.5 px-3 rounded-lg bg-safety-green text-white text-xs font-bold flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity"
+                    className="py-2.5 px-2 rounded-lg bg-safety-green text-white text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 hover:opacity-90 transition-opacity"
                   >
-                    <span>네이버 지도</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>네이버플레이스</span>
+                    <ExternalLink className="w-3 h-3 shrink-0" />
                   </a>
                   <a
                     href={`https://map.kakao.com/?q=${encodeURIComponent(
@@ -225,10 +292,21 @@ export const LocationContactPage: React.FC<LocationContactPageProps> = ({ onNavi
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2.5 px-3 rounded-lg bg-amber-400 text-on-surface text-xs font-bold flex items-center justify-center gap-1.5 hover:opacity-90 transition-opacity"
+                    className="py-2.5 px-2 rounded-lg bg-amber-400 text-on-surface text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 hover:opacity-90 transition-opacity"
                   >
                     <span>카카오맵</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <ExternalLink className="w-3 h-3 shrink-0" />
+                  </a>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      selectedBranch.googleMapQuery
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-2.5 px-2 rounded-lg bg-badge-certified-blue text-white text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 hover:opacity-90 transition-opacity"
+                  >
+                    <span>구글지도</span>
+                    <ExternalLink className="w-3 h-3 shrink-0" />
                   </a>
                 </div>
               </div>
@@ -368,15 +446,32 @@ export const LocationContactPage: React.FC<LocationContactPageProps> = ({ onNavi
                     확인하실 수 있습니다.
                   </p>
                 </div>
-                <div className="flex flex-wrap gap-4 pt-3 border-t border-brand-border text-xs font-bold text-on-surface tabular-nums">
-                  <a href={`tel:${COMPANY_INFO.phoneMain}`} className="flex items-center gap-1.5 hover:text-primary">
+                <div className="flex flex-wrap gap-3 pt-3 border-t border-brand-border text-xs font-bold text-on-surface tabular-nums">
+                  <a
+                    href={`tel:${COMPANY_INFO.phoneMain}`}
+                    onClick={onTrackPhone}
+                    className="flex items-center gap-1.5 hover:text-primary"
+                  >
                     <Phone className="w-4 h-4 text-primary" />
                     대표전화 {COMPANY_INFO.phoneMain}
                   </a>
-                  <a href={`tel:${COMPANY_INFO.phoneDirect}`} className="flex items-center gap-1.5 hover:text-primary">
+                  <a
+                    href={`tel:${COMPANY_INFO.phoneDirect}`}
+                    onClick={onTrackPhone}
+                    className="flex items-center gap-1.5 hover:text-primary"
+                  >
                     <Smartphone className="w-4 h-4 text-secondary" />
                     직통 {COMPANY_INFO.phoneDirect}
                   </a>
+                  {onOpenKakao && (
+                    <button
+                      type="button"
+                      onClick={onOpenKakao}
+                      className="px-3 py-1 rounded-lg bg-amber-400 text-on-surface font-bold cursor-pointer"
+                    >
+                      카카오톡 문의
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -452,10 +547,11 @@ export const LocationContactPage: React.FC<LocationContactPageProps> = ({ onNavi
                       <label className="text-xs font-bold text-on-surface">상담 희망 지역</label>
                       <select
                         value={reqRegion}
-                        onChange={(e) => setReqRegion(e.target.value)}
+                        onChange={(e) => setReqRegion(e.target.value as RegionName)}
                         className="px-3 py-2.5 rounded-lg bg-surface-container-low border border-brand-border text-sm"
                       >
-                        <option value="포항시">포항시 (북구·남구)</option>
+                        <option value="포항시 북구">포항시 북구</option>
+                        <option value="포항시 남구">포항시 남구</option>
                         <option value="경주시">경주시 전지역</option>
                         <option value="영덕군">영덕군 전지역</option>
                         <option value="울진군">울진군 전지역</option>
@@ -493,6 +589,19 @@ export const LocationContactPage: React.FC<LocationContactPageProps> = ({ onNavi
                     />
                   </div>
 
+                  <label className="flex items-start gap-2 text-xs text-slate-text-muted cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={reqConsent}
+                      onChange={(e) => setReqConsent(e.target.checked)}
+                      className="accent-primary w-4 h-4 mt-0.5"
+                    />
+                    <span>
+                      <strong className="text-on-surface">[필수]</strong> 무료 방문실측 및 전화
+                      상담을 위한 개인정보 수집·이용에 동의합니다.
+                    </span>
+                  </label>
+
                   <button
                     type="submit"
                     className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-container text-white text-sm font-bold transition-colors cursor-pointer"
@@ -501,6 +610,34 @@ export const LocationContactPage: React.FC<LocationContactPageProps> = ({ onNavi
                   </button>
                 </form>
               )}
+            </div>
+          </div>
+          {/* Compact Regional Location FAQ */}
+          <div className="mt-8 bg-surface-container-lowest rounded-2xl p-6 sm:p-8 border border-brand-border">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+              <div>
+                <div className="text-xs font-bold text-badge-certified-blue mb-1">
+                  출동 권역 · 상담 안내 FAQ
+                </div>
+                <h2 className="text-xl font-black text-on-surface">
+                  포항·경주·영덕·울진 직영 출동 자주 묻는 질문
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => onNavigate('board', { boardTab: 'FAQ' })}
+                className="text-xs font-bold text-primary hover:underline cursor-pointer"
+              >
+                FAQ 전체보기 →
+              </button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {CORE_FAQS.filter((f) => f.id === 'faq-3' || f.id === 'faq-9').map((faq) => (
+                <div key={faq.id} className="p-4 rounded-xl bg-surface-container-low">
+                  <h3 className="text-sm font-bold text-on-surface mb-1.5">Q. {faq.question}</h3>
+                  <p className="text-xs text-slate-text-muted leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

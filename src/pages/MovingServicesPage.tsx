@@ -11,21 +11,29 @@ import {
 import {
   COMPANY_INFO,
   COMPARISON_ROWS,
+  CORE_FAQS,
   MOVING_SERVICES,
   PROCESS_STEPS,
 } from '../data/yesMovingData';
-import { PageId, QuotePrefill } from '../types';
+import { BoardCategory, PageId, QuotePrefill } from '../types';
 import { SafeImage } from '../components/SafeImage';
 import { ServiceIcon } from '../components/ServiceIcon';
 
 interface MovingServicesPageProps {
-  onNavigate: (page: PageId, options?: { prefill?: QuotePrefill }) => void;
+  onNavigate: (
+    page: PageId,
+    options?: { prefill?: QuotePrefill; boardTab?: BoardCategory }
+  ) => void;
   initialAnchorId?: string;
+  onOpenKakao?: () => void;
+  onTrackPhone?: () => void;
 }
 
 export const MovingServicesPage: React.FC<MovingServicesPageProps> = ({
   onNavigate,
   initialAnchorId,
+  onOpenKakao,
+  onTrackPhone,
 }) => {
   const [activeTab, setActiveTab] = useState<string>(initialAnchorId || MOVING_SERVICES[0].anchorId);
 
@@ -67,32 +75,41 @@ export const MovingServicesPage: React.FC<MovingServicesPageProps> = ({
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl text-on-surface font-black tracking-tight leading-tight">
-                고객 맞춤형
+                예스이사 서비스 소개 ·
                 <br className="hidden sm:inline" />{' '}
-                <span className="text-primary">프리미엄 이사 솔루션</span>
+                <span className="text-primary">포장이사·관공서·학교이사</span>
               </h1>
 
               <p className="text-base sm:text-lg text-on-surface-variant leading-relaxed max-w-2xl">
-                단순 운반을 넘어 청결, 완벽한 포장, 덧신 보양, 피톤치드 살균까지. 예스이사의 20년
-                노하우와 국가공인 화물운송면허를 바탕으로 소중한 보금자리를 정성껏 옮겨드립니다.
+                가정 포장이사, 관공서이사·학교이사, 원룸 소형이사, 항온항습 보관이사, 고층 사다리차
+                직영까지. 예스이사의 표준 시공 매뉴얼과 국가공인 화물주선면허를 바탕으로 완벽하게
+                이전합니다.
               </p>
 
-              <div className="flex flex-wrap items-center gap-3 pt-2">
+              <div className="flex flex-wrap items-center gap-2.5 pt-2">
+                <a
+                  href={`tel:${COMPANY_INFO.phoneMain}`}
+                  onClick={onTrackPhone}
+                  className="inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-sm font-bold shadow-sm transition-colors tabular-nums"
+                >
+                  <Phone className="w-4 h-4 mr-2" />
+                  <span>{COMPANY_INFO.phoneMain} 전화상담</span>
+                </a>
                 <button
                   type="button"
                   onClick={() => onNavigate('instant-quote')}
-                  className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-sm font-bold shadow-sm transition-colors cursor-pointer"
+                  className="inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-inverse-surface hover:bg-on-background text-white text-sm font-bold transition-colors cursor-pointer"
                 >
                   <Calendar className="w-4 h-4 mr-2" />
-                  <span>실시간 맞춤 무료견적 받기</span>
+                  <span>상담 문의하기</span>
                 </button>
-                <a
-                  href={`tel:${COMPANY_INFO.phoneMain}`}
-                  className="inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-surface-container-lowest border border-brand-border hover:bg-surface-container text-on-surface text-sm font-bold transition-colors tabular-nums"
+                <button
+                  type="button"
+                  onClick={onOpenKakao}
+                  className="inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-on-surface text-sm font-bold transition-colors cursor-pointer"
                 >
-                  <Phone className="w-4 h-4 mr-2 text-primary" />
-                  <span>{COMPANY_INFO.phoneMain} 직통전화</span>
-                </a>
+                  <span>카카오톡 문의</span>
+                </button>
               </div>
             </div>
 
@@ -104,7 +121,7 @@ export const MovingServicesPage: React.FC<MovingServicesPageProps> = ({
                     src={COMPANY_INFO.emblemUrl}
                     fallbackSrc={COMPANY_INFO.logoUrl}
                     alt="예스이사 공식 심볼 로고"
-                    className="w-11 h-10 object-contain"
+                    className="w-14 h-11 rounded-lg object-contain bg-white p-1 border border-brand-border/70"
                   />
                   <div>
                     <div className="text-base font-black text-on-surface">예스이사 품질보증</div>
@@ -326,12 +343,15 @@ export const MovingServicesPage: React.FC<MovingServicesPageProps> = ({
         </div>
 
         <div className="overflow-x-auto rounded-2xl bg-surface-container-lowest border border-brand-border">
-          <table className="w-full text-left text-sm border-collapse min-w-[680px]">
+          <table className="w-full text-left text-sm border-collapse min-w-[780px]">
             <thead>
               <tr className="bg-surface-container-high text-on-surface border-b border-brand-border">
-                <th className="py-4 px-6 font-bold w-1/4">서비스 항목</th>
+                <th className="py-4 px-6 font-bold w-1/5">서비스 항목</th>
                 <th className="py-4 px-4 font-bold text-center text-primary bg-primary/5">
                   프리미엄 포장이사
+                </th>
+                <th className="py-4 px-4 font-bold text-center text-badge-certified-blue">
+                  관공서·학교·기업
                 </th>
                 <th className="py-4 px-4 font-bold text-center">실속 일반이사</th>
                 <th className="py-4 px-4 font-bold text-center">원룸·용달 소형</th>
@@ -345,15 +365,45 @@ export const MovingServicesPage: React.FC<MovingServicesPageProps> = ({
                   <td className="py-3.5 px-4 text-center bg-primary/5 text-primary font-bold">
                     {row.premium}
                   </td>
+                  <td className="py-3.5 px-4 text-center text-xs text-badge-certified-blue font-semibold">
+                    {row.office}
+                  </td>
                   <td className="py-3.5 px-4 text-center text-xs">{row.standard}</td>
                   <td className="py-3.5 px-4 text-center text-xs">{row.oneroom}</td>
-                  <td className="py-3.5 px-4 text-center text-xs text-badge-certified-blue font-semibold">
+                  <td className="py-3.5 px-4 text-center text-xs font-semibold">
                     {row.storage}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Service FAQ Summary */}
+        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-surface-container-low border border-brand-border">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-5">
+            <h3 className="text-lg font-black text-on-surface">
+              포장이사·관공서이사·학교이사 자주 묻는 질문
+            </h3>
+            <button
+              type="button"
+              onClick={() => onNavigate('board', { boardTab: 'FAQ' })}
+              className="text-xs font-bold text-primary hover:underline cursor-pointer"
+            >
+              FAQ 10선 전체보기 →
+            </button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            {CORE_FAQS.slice(0, 3).map((faq) => (
+              <div
+                key={faq.id}
+                className="p-4 rounded-xl bg-surface-container-lowest border border-brand-border"
+              >
+                <div className="font-bold text-on-surface mb-1.5">Q. {faq.question}</div>
+                <p className="text-slate-text-muted leading-relaxed">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -365,7 +415,7 @@ export const MovingServicesPage: React.FC<MovingServicesPageProps> = ({
               방문 견적 무료 · 추가 요금 0원
             </div>
             <h2 className="text-2xl sm:text-3xl font-black tracking-tight mb-3">
-              내 조건에 딱 맞는 이사 비용, 1분 만에 무료로 확인하세요
+              포항·경주·영덕·울진 이사 비용, 1분 만에 무료로 확인하세요
             </h2>
             <p className="text-sm text-white/75 leading-relaxed">
               포항 본점, 경주, 영덕, 울진 직영 네트워크로 출장비 없이 견적 매니저가 방문하거나
@@ -376,17 +426,27 @@ export const MovingServicesPage: React.FC<MovingServicesPageProps> = ({
             <button
               type="button"
               onClick={() => onNavigate('instant-quote')}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 rounded-xl bg-primary hover:bg-primary-container text-white text-sm font-bold transition-colors cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-4 rounded-xl bg-primary hover:bg-primary-container text-white text-sm font-bold transition-colors cursor-pointer"
             >
               <Calculator className="w-4 h-4 mr-2" />
               <span>간편 실시간 견적 신청</span>
             </button>
+            {onOpenKakao && (
+              <button
+                type="button"
+                onClick={onOpenKakao}
+                className="w-full sm:w-auto inline-flex items-center justify-center px-5 py-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-on-surface text-sm font-bold transition-colors cursor-pointer"
+              >
+                <span>카카오톡 문의</span>
+              </button>
+            )}
             <a
               href={`tel:${COMPANY_INFO.phoneMain}`}
+              onClick={onTrackPhone}
               className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-4 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-bold transition-colors tabular-nums"
             >
               <Phone className="w-4 h-4 mr-2" />
-              <span>{COMPANY_INFO.phoneMain} 즉시 전화</span>
+              <span>{COMPANY_INFO.phoneMain} 전화상담</span>
             </a>
           </div>
         </div>

@@ -15,8 +15,9 @@ import {
   Truck,
   Warehouse,
 } from 'lucide-react';
-import { COMPANY_INFO } from '../data/yesMovingData';
+import { COMPANY_INFO, CORE_FAQS } from '../data/yesMovingData';
 import {
+  BoardCategory,
   HomeSize,
   MovingType,
   PageId,
@@ -28,8 +29,12 @@ import {
 import { getLunarDateInfo } from '../utils/lunarCalendar';
 
 interface InstantQuotePageProps {
-  onNavigate: (page: PageId) => void;
+  onNavigate: (page: PageId, options?: { boardTab?: BoardCategory }) => void;
   prefill?: QuotePrefill;
+  onAddQuote?: (quote: QuoteSubmission) => void;
+  onOpenLegalModal?: (tab: 'terms' | 'privacy') => void;
+  onOpenKakao?: () => void;
+  onTrackPhone?: () => void;
 }
 
 const QUOTES_STORAGE_KEY = 'yesmoving_quote_submissions_v1';
@@ -92,6 +97,10 @@ function getDefaultMovingDate(): string {
 export const InstantQuotePage: React.FC<InstantQuotePageProps> = ({
   onNavigate,
   prefill,
+  onAddQuote,
+  onOpenLegalModal,
+  onOpenKakao,
+  onTrackPhone,
 }) => {
   const [movingType, setMovingType] = useState<MovingType>(
     prefill?.movingType || '가정포장이사'
@@ -140,7 +149,17 @@ export const InstantQuotePage: React.FC<InstantQuotePageProps> = ({
     try {
       const raw = localStorage.getItem(QUOTES_STORAGE_KEY);
       if (raw) {
-        setSavedQuotes(JSON.parse(raw) as QuoteSubmission[]);
+        const parsed = JSON.parse(raw) as Partial<QuoteSubmission>[];
+        if (Array.isArray(parsed)) {
+          setSavedQuotes(
+            parsed.slice(0, 5).map((q, idx) => ({
+              ...(q as QuoteSubmission),
+              id: q.id || `Q-${idx}`,
+              status: q.status || '접수대기',
+              source: q.source || '견적신청',
+            }))
+          );
+        }
       }
     } catch {
       // Ignore parse error
@@ -289,6 +308,8 @@ export const InstantQuotePage: React.FC<InstantQuotePageProps> = ({
     const submission: QuoteSubmission = {
       id: `Q-${Date.now().toString().slice(-6)}`,
       createdAt: new Date().toLocaleString('ko-KR'),
+      status: '접수대기',
+      source: '견적신청',
       movingType,
       startRegion,
       startDetail: startDetail.trim() || '상세주소 상담 시 안내',
@@ -311,12 +332,19 @@ export const InstantQuotePage: React.FC<InstantQuotePageProps> = ({
       recommendedTruck: estimate.truck,
     };
 
-    try {
-      const nextList = [submission, ...savedQuotes].slice(0, 5);
-      localStorage.setItem(QUOTES_STORAGE_KEY, JSON.stringify(nextList));
-      setSavedQuotes(nextList);
-    } catch {
-      // Ignore storage error
+    if (onAddQuote) {
+      onAddQuote(submission);
+      setSavedQuotes((prev) => [submission, ...prev].slice(0, 5));
+    } else {
+      try {
+        const existingRaw = localStorage.getItem(QUOTES_STORAGE_KEY);
+        const existing = existingRaw ? (JSON.parse(existingRaw) as QuoteSubmission[]) : [];
+        const nextFull = [submission, ...existing].slice(0, 30);
+        localStorage.setItem(QUOTES_STORAGE_KEY, JSON.stringify(nextFull));
+        setSavedQuotes(nextFull.slice(0, 5));
+      } catch {
+        // Ignore storage error
+      }
     }
 
     setSubmittedQuote(submission);
@@ -333,7 +361,7 @@ export const InstantQuotePage: React.FC<InstantQuotePageProps> = ({
               <span>국토교통부 공식 관허 {COMPANY_INFO.freightLicense}</span>
             </div>
             <h1 className="text-3xl sm:text-4xl text-on-surface tracking-tight font-black">
-              1분 완성 실시간 무료 견적 신청
+              예스이사 상담신청 · 실시간 무료견적
             </h1>
             <p className="text-sm sm:text-base text-slate-text-muted leading-relaxed">
               포항 · 경주 · 영덕 · 울진 전지역 직영 서비스.{' '}
@@ -347,6 +375,7 @@ export const InstantQuotePage: React.FC<InstantQuotePageProps> = ({
             <div>
               <div className="text-xs text-slate-text-muted">365일 신속 유선 접수</div>
               <a
+                onClick={onTrackPhone}
                 className="text-2xl text-primary font-black tabular-nums hover:text-primary-container transition-colors"
                 href={`tel:${COMPANY_INFO.phoneMain}`}
               >
@@ -798,22 +827,35 @@ export const InstantQuotePage: React.FC<InstantQuotePageProps> = ({
                   />
                 </div>
 
-                <label className="p-4 rounded-xl bg-surface-container-low border border-brand-border flex items-start gap-3 cursor-pointer">
+                <div className="p-4 rounded-xl bg-surface-container-low border border-brand-border flex items-start gap-3">
                   <input
+                    id="privacy-consent-checkbox"
                     type="checkbox"
                     checked={privacyConsent}
                     onChange={(e) => setPrivacyConsent(e.target.checked)}
-                    className="accent-primary w-4 h-4 mt-0.5"
+                    className="accent-primary w-4 h-4 mt-0.5 cursor-pointer"
                   />
-                  <div className="text-xs text-slate-text-muted leading-relaxed">
-                    <span className="font-bold text-on-surface block mb-0.5">
+                  <div className="text-xs text-slate-text-muted leading-relaxed flex-1">
+                    <label
+                      htmlFor="privacy-consent-checkbox"
+                      className="font-bold text-on-surface block mb-0.5 cursor-pointer"
+                    >
                       [필수] 무료 방문 및 실시간 유선 견적 상담을 위한 개인정보 수집·이용에
                       동의합니다.
+                    </label>
+                    <span>
+                      수집항목: 성명, 연락처, 주소 | 이용목적: 이사 견적 산출 및 방문일정 확정 |
+                      보유기간: 상담 완료 후 1년 이내 폐기{' '}
                     </span>
-                    수집항목: 성명, 연락처, 주소 | 이용목적: 이사 견적 산출 및 방문일정 확정 |
-                    보유기간: 상담 완료 후 1년 이내 폐기
+                    <button
+                      type="button"
+                      onClick={() => onOpenLegalModal?.('privacy')}
+                      className="text-primary font-bold underline cursor-pointer ml-1"
+                    >
+                      개인정보처리방침 전문보기
+                    </button>
                   </div>
-                </label>
+                </div>
 
                 <button
                   type="submit"
@@ -923,12 +965,23 @@ export const InstantQuotePage: React.FC<InstantQuotePageProps> = ({
               <div className="flex flex-col gap-2 pt-1">
                 <a
                   href={`tel:${COMPANY_INFO.phoneMain}`}
+                  onClick={onTrackPhone}
                   className="w-full py-3 rounded-xl bg-white text-primary hover:bg-surface-container-low text-sm font-black text-center transition-colors"
                 >
                   대표전화 바로 연결
                 </a>
+                {onOpenKakao && (
+                  <button
+                    type="button"
+                    onClick={onOpenKakao}
+                    className="w-full py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-on-surface text-xs font-bold text-center transition-colors cursor-pointer"
+                  >
+                    카카오톡 · 사진 견적 문의
+                  </button>
+                )}
                 <a
                   href={`tel:${COMPANY_INFO.phoneDirect}`}
+                  onClick={onTrackPhone}
                   className="w-full py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-bold text-center transition-colors tabular-nums"
                 >
                   야간 / 휴일 직통: {COMPANY_INFO.phoneDirect}
@@ -967,6 +1020,33 @@ export const InstantQuotePage: React.FC<InstantQuotePageProps> = ({
               </ul>
             </div>
           </aside>
+        </div>
+
+        {/* Compact Quote FAQ */}
+        <div className="mt-10 bg-surface-container-lowest rounded-2xl p-6 sm:p-8 border border-brand-border">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+            <div>
+              <div className="text-xs font-bold text-primary mb-1">견적 · 상담 안내 FAQ</div>
+              <h2 className="text-xl font-black text-on-surface">
+                견적 신청 전 자주 묻는 질문
+              </h2>
+            </div>
+            <button
+              type="button"
+              onClick={() => onNavigate('board', { boardTab: 'FAQ' })}
+              className="text-xs font-bold text-primary hover:underline cursor-pointer"
+            >
+              FAQ 전체보기 →
+            </button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {CORE_FAQS.filter((f) => f.id === 'faq-1' || f.id === 'faq-4').map((faq) => (
+              <div key={faq.id} className="p-4 rounded-xl bg-surface-container-low">
+                <h3 className="text-sm font-bold text-on-surface mb-1.5">Q. {faq.question}</h3>
+                <p className="text-xs text-slate-text-muted leading-relaxed">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

@@ -6,6 +6,7 @@ import ladderTruckImg from '../assets/images/service_ladder_truck_1794550167559.
 import {
   BranchInfo,
   CustomerReview,
+  FaqItem,
   GalleryCase,
   MovingServiceInfo,
 } from '../types';
@@ -21,11 +22,10 @@ export const COMPANY_INFO = {
   phoneMain: '1688-0450',
   phoneOffice: '054-251-1234',
   phoneDirect: '010-5608-2424',
+  kakaoChannelLabel: '예스이사 포항본점 직통상담',
   hours: '365일 연중무휴 08:00 ~ 20:00',
-  logoUrl:
-    'https://lh3.googleusercontent.com/aida/AEtjO1VN_uXEDT4v2PG-zNaWHgC_1X_950SBdyyOyRXNNFeH6gzq1nWvJjdVTNNLjXMnOMQZjAwmyMQg1b45yYRz90US9S-nI4o5OR6TNO1fx1ZCwtLj_oo-ZHBBN52k_OHwdErQ2CuvzYDOt-H2syub2VT-P36W7AvjyS1rjXxM0aFbETijHwld_euH7mTZ6LUaajDx2Lby37Z4--vgc-MQgCKI2jrnyss6g5DuNMy6tg8V_GTRgVdJ6b3IHwa9',
-  emblemUrl:
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuBuGK66lSzYMyNvaANHz0AHYXDdpHd47F3H4ARk_sW0epdvEl4hstJPNI8O4O2xZd9BnGmpQkJrp0p85klVycjlENOBB52KnyK60oucBHOS9qgNCYtNcvPJqH8FM2cJQ-HSXOmv-Z3gV7yavB6_YY-AzBJTUPAgWs1p5poNbXx2WiU39KHYj88YKXmh7bB7e_KmDFFMlCCLmljgebcgz4k3FmR3zvCaTq4nvp7RsPWditE9XMwGyXgx8w',
+  logoUrl: '/assets/aistudio/________12_0a94c5f9.jpg',
+  emblemUrl: '/assets/aistudio/________12_0a94c5f9.jpg',
   businessLicenseDocUrl:
     'https://lh3.googleusercontent.com/aida-public/AB6AXuDz5oKIAdoXNAGCIMmoBsjvOSQRS06-OZBxanZbplzfdU7-eZC8BpbvEdtY2jxrogrxrLqNeK9skLBMcgATDkPvzj7pOAQVN0G26iAdFXV4aLMncVRvHkIRMNuhHdz-0dvLhCycFJLpIfkfuFYT19RZ1RRyEi59shF2HCxd3VakuTQBmbIkQ3BGIbaf5az_iLFulufIkCvut6VXQGAQzmfNXCMMDn99e9SIgbzJhBzDyUZ3zWyEMJxGYg',
   womanEnterpriseDocUrl:
@@ -40,6 +40,79 @@ export const LOCAL_IMAGES = {
   ladderTruck: ladderTruckImg,
 };
 
+export const CORE_FAQS: FaqItem[] = [
+  {
+    id: 'faq-1',
+    category: '상담/견적',
+    question: '이사 상담은 어떻게 진행되나요?',
+    answer:
+      '대표전화(1688-0450) 또는 온라인 무료견적 신청을 남겨주시면 5분 이내 전담 플래너가 연락드려 짐량과 동선을 확인한 뒤, 원하시는 날짜에 무료 방문 실측 또는 유선 표준 견적을 진행합니다.',
+  },
+  {
+    id: 'faq-2',
+    category: '이사 비용',
+    question: '이사 비용은 어떻게 확인하고 결정되나요?',
+    answer:
+      '주거 평형대, 짐의 양(차량 톤수), 출발·도착지 거리, 사다리차·엘리베이터 작업 여부, 특수 가전(에어컨·피아노 등) 조건을 종합해 산출합니다. 계약서 명시 후 당일 식대나 수고비 등 추가금은 0원입니다.',
+  },
+  {
+    id: 'faq-3',
+    category: '서비스/지역',
+    question: '포항 외 경주·영덕·울진에서도 동일한 직영 서비스를 이용할 수 있나요?',
+    answer:
+      '네, 예스이사는 포항 본사를 중심으로 경주시, 영덕군, 울진군 전지역을 본사 직영 네트워크로 운영합니다. 동해안 4대 권역 모두 별도 출장비 없이 무료 방문 실측과 직접 배차가 가능합니다.',
+  },
+  {
+    id: 'faq-4',
+    category: '상담/견적',
+    question: '처음 이사 문의할 때 어떤 정보를 준비하면 좋나요?',
+    answer:
+      '출발지·도착지 동/읍면 단위 위치, 현재 거주 평형, 이사 희망 날짜(또는 손없는날 여부), 엘리베이터 및 사다리차 가능 여부만 대략적으로 알려주시면 즉시 정확한 안내가 가능합니다.',
+  },
+  {
+    id: 'faq-5',
+    category: '예약/준비',
+    question: '방문 상담 후 바로 이사를 신청·확정할 수 있나요?',
+    answer:
+      '네, 견적 금액과 서비스 조건이 마음에 드시면 현장에서 국토교통부 표준이사화물약관 계약서를 작성하여 손없는날 및 원하시는 시간대 배차를 즉시 확정하실 수 있습니다. 물론 타사 비교 후 결정하셔도 방문 수수료는 없습니다.',
+  },
+  {
+    id: 'faq-6',
+    category: '예약/준비',
+    question: '모바일에서도 예약이나 견적 문의가 가능한가요?',
+    answer:
+      '네, 모바일 화면 하단 고정 버튼(전화상담 / 상담 문의하기)과 손없는날 달력, 실시간 무료견적 페이지를 통해 PC와 동일하게 1분 만에 일정 확인 및 신청이 가능합니다.',
+  },
+  {
+    id: 'faq-7',
+    category: '서비스/지역',
+    question: '실제 이사 후기나 작업 현장 사례는 어디에서 확인하나요?',
+    answer:
+      '상단 메뉴의 [갤러리] 또는 [커뮤니티·후기] 게시판에서 포항·경주·영덕·울진 각 지역별 작업 사진, 투입 차량·인력, 시공 체크리스트와 실제 고객 후기를 확인하실 수 있습니다.',
+  },
+  {
+    id: 'faq-8',
+    category: '상담/견적',
+    question: '카카오톡 또는 비대면 채팅·사진 견적 상담이 가능한가요?',
+    answer:
+      '가능합니다. 홈페이지 내 [카카오톡 문의] 버튼이나 현장 총괄 직통번호(010-5608-2424)로 가구·방 사진을 보내주시면 바쁜 직장인이나 타지역 고객님도 빠르게 비대면 견적을 받으실 수 있습니다.',
+  },
+  {
+    id: 'faq-9',
+    category: '상담/견적',
+    question: '전화 상담과 온라인 문의의 차이는 무엇인가요?',
+    answer:
+      '전화 상담(1688-0450)은 즉각적인 배차 가능 여부 확인과 긴급 이사에 유리하며, 온라인 견적 신청은 출발지·도착지·특수화물을 꼼꼼히 체크해 예상 금액 가이드를 미리 확인한 뒤 해피콜을 받는 방식입니다.',
+  },
+  {
+    id: 'faq-10',
+    category: '이사 비용',
+    question: '관공서이사, 학교이사, 포장이사 진행 전 확인해야 할 점은 무엇인가요?',
+    answer:
+      '반드시 화물자동차운송주선사업 정식 허가증 보유 여부(제5020000-2006-03-04019호)와 적재물배상책임보험(5억원) 가입 여부를 확인하세요. 관공서·학교 이전 시에는 중소벤처기업부 여성기업 확인서와 세금계산서 발행 지원 여부도 중요합니다.',
+  },
+];
+
 export const MOVING_SERVICES: MovingServiceInfo[] = [
   {
     id: 'premium',
@@ -50,7 +123,7 @@ export const MOVING_SERVICES: MovingServiceInfo[] = [
     title: '프리미엄 포장이사',
     quoteType: '가정포장이사',
     description:
-      '짐 정리부터 포장, 운송, 가구 조립 및 배치, 피톤치드 살균 청소까지 모든 과정을 전문 베테랑 팀이 원스톱으로 처리하는 예스이사 대표 솔루션입니다.',
+      '짐 정리부터 포장, 운송, 가구 조립 및 배치, 피톤치드 살균 청소까지 모든 과정을 전문 베테랑 팀이 원스톱으로 처리하는 예스이사 대표 포장이사 솔루션입니다.',
     image: heroPohangImg,
     fallbackImage: packingHomeImg,
     imageAlt: '예스이사 프리미엄 가정포장이사 현장 바닥 보양 및 가구 보호 포장',
@@ -91,9 +164,47 @@ export const MOVING_SERVICES: MovingServiceInfo[] = [
     footerNote: '5톤 탑차 + 전문인력 패키지 구성',
   },
   {
+    id: 'office',
+    anchorId: 'svc-office',
+    number: '02',
+    badge: '관공서·학교·기업 전담',
+    subtitle: '공공기관 · 초중고/대학 · 사옥 · 연구소',
+    title: '관공서·학교·기업 이사',
+    quoteType: '기업관공서이사',
+    description:
+      '포항·경주·영덕·울진 관공서, 학교, 연구실 및 기업 사옥 이전을 전담합니다. 여성기업 확인서 및 정식 관허 서류를 완비하여 공공 입찰·정산과 주말 야간 이전으로 업무 공백을 제로화합니다.',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBKBwczjX5Hk__AfC6GIXf-O0Rrk8KUmUNvZuOJB_ZXG--QK-ODUroLIfAPPpaW7_PVCAmIf2F8h8Q0wrGsDhzLKF5utSFKsqBh3ObbQbxzYdY9HzM9-cxxX3fvWtdwSCeoq0_BCWr48H5UIrtHr5Igv3kMMr5azOGwxe203blN06c8F9inCBNh9qPB5CLJAEPRlL3Dtwv0HT19UxfH0eOBDwwfJZzlwCSNcCLoUEtd',
+    fallbackImage: officeStorageImg,
+    imageAlt: '관공서 학교 기업 사무실 전산 장비 정전기 방지 포장 및 라벨링 현장',
+    imageTag: '업무 공백 최소화',
+    imageHeadline: '주말·야간 전담 관공서·학교·기업 이전',
+    features: [
+      {
+        iconName: 'memory',
+        title: '전산 장비 & 실험기자재 특수 패킹',
+        description: '정전기 방지 에어캡 및 하드케이스 완충재로 PC·서버·학교 기자재를 안전하게 이동합니다.',
+        accentColor: 'text-primary',
+      },
+      {
+        iconName: 'label',
+        title: '부서·교실·좌석별 넘버링 라벨링',
+        description: '신규 청사·교사 도면 배치도에 따라 1:1 매칭 조립하여 다음날 즉시 정상 업무가 가능합니다.',
+        accentColor: 'text-secondary',
+      },
+      {
+        iconName: 'description',
+        title: '여성기업 확인서·관허 입찰 증빙 완비',
+        description: '화물자동차운송주선사업허가증, 여성기업 확인서, 적재물보험 증권 및 전자세금계산서 즉시 발급.',
+        accentColor: 'text-badge-certified-blue',
+      },
+    ],
+    footerNote: '중소벤처기업부 여성기업 가점 및 관공서·학교 정산 완벽 지원',
+  },
+  {
     id: 'standard',
     anchorId: 'svc-standard',
-    number: '02',
+    number: '03',
     badge: '실속형 이사',
     subtitle: '소형 가구 자가포장 고객 추천',
     title: '실속 맞춤 일반이사',
@@ -131,9 +242,9 @@ export const MOVING_SERVICES: MovingServiceInfo[] = [
   {
     id: 'oneroom',
     anchorId: 'svc-oneroom',
-    number: '03',
+    number: '04',
     badge: '1인가구 특화',
-    subtitle: '원룸 · 오피스텔 · 청년·직장인',
+    subtitle: '원룸 · 오피스텔 · 대학생·직장인',
     title: '원룸·용달 소형이사',
     quoteType: '원룸소형이사',
     description:
@@ -164,44 +275,6 @@ export const MOVING_SERVICES: MovingServiceInfo[] = [
       },
     ],
     footerNote: '포항·경주 대학가 및 원룸촌 당일 신속 배차',
-  },
-  {
-    id: 'office',
-    anchorId: 'svc-office',
-    number: '04',
-    badge: '기업전담 PM',
-    subtitle: '공공기관 · 연구소 · 사옥 · 학원',
-    title: '기업·사무실·관공서 이사',
-    quoteType: '기업관공서이사',
-    description:
-      '체계적인 사전 실측 계획 수립을 통해 업무 공백을 최소화합니다. PC, 서버, 특수 장비의 정밀 포장부터 보안 문서 분류, 파티션 분해 조립 및 주말·야간 이전까지 완벽히 수행합니다.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBKBwczjX5Hk__AfC6GIXf-O0Rrk8KUmUNvZuOJB_ZXG--QK-ODUroLIfAPPpaW7_PVCAmIf2F8h8Q0wrGsDhzLKF5utSFKsqBh3ObbQbxzYdY9HzM9-cxxX3fvWtdwSCeoq0_BCWr48H5UIrtHr5Igv3kMMr5azOGwxe203blN06c8F9inCBNh9qPB5CLJAEPRlL3Dtwv0HT19UxfH0eOBDwwfJZzlwCSNcCLoUEtd',
-    fallbackImage: officeStorageImg,
-    imageAlt: '기업 사무실 전산 장비 정전기 방지 포장 및 부서별 라벨링 현장',
-    imageTag: '업무 공백 최소화',
-    imageHeadline: '주말·야간 전담 기업 사옥 이전',
-    features: [
-      {
-        iconName: 'memory',
-        title: '전산 장비 & 서버 랙 특수 충격 흡수 패킹',
-        description: '정전기 방지 에어캡 및 하드케이스 완충재로 고가 전자기기를 안전하게 이동합니다.',
-        accentColor: 'text-primary',
-      },
-      {
-        iconName: 'label',
-        title: '부서별·좌석별 넘버링 라벨링 시스템',
-        description: '신규 사옥 도면 배치도에 따라 1:1 매칭 조립하여 다음 영업일 즉시 근무 가능 환경을 조성합니다.',
-        accentColor: 'text-secondary',
-      },
-      {
-        iconName: 'description',
-        title: '전자세금계산서 및 공공 입찰 증빙 완비',
-        description: '화물자동차운송주선사업허가증, 여성기업 확인서, 적재물보험 증권을 즉시 발급합니다.',
-        accentColor: 'text-badge-certified-blue',
-      },
-    ],
-    footerNote: '중소벤처기업부 여성기업 가점 및 관공서 정산 완비',
   },
   {
     id: 'storage',
@@ -340,6 +413,7 @@ export const COMPARISON_ROWS = [
   {
     item: '모든 물품 전문 포장',
     premium: '전체 포장',
+    office: '전산/서류 특화 포장',
     standard: '대형가전/가구만',
     oneroom: '옵션 선택형',
     storage: '2회 입·출고 포장',
@@ -347,6 +421,7 @@ export const COMPARISON_ROWS = [
   {
     item: '바닥 및 벽면 안심 보양',
     premium: '완벽 시공',
+    office: '청사·교실 복도 보양',
     standard: '주요 이동로 지원',
     oneroom: '필요시 적용',
     storage: '완벽 시공',
@@ -354,20 +429,23 @@ export const COMPARISON_ROWS = [
   {
     item: '가구/가전 배치 & 수평조절',
     premium: '기본 포함',
+    office: '도면 1:1 좌석 세팅',
     standard: '대형가구만 안착',
     oneroom: '도움 요청시',
     storage: '출고시 최종 안착',
   },
   {
-    item: '냉장고 아이스박스 보관 & 청소',
+    item: '냉장고 아이스박스 & 청소',
     premium: '전용 아이스박스+살균',
+    office: '탕비실 집기 분리',
     standard: '미포함',
     oneroom: '옵션 추가',
     storage: '보관 전 소독',
   },
   {
-    item: '바닥 스팀 청소 & 쓰레기 정리',
+    item: '바닥 스팀 청소 & 정리',
     premium: '기본 제공',
+    office: '폐기물/박스 일괄 수거',
     standard: '빗자루 간이정리',
     oneroom: '미포함',
     storage: '출고 시 제공',
@@ -375,6 +453,7 @@ export const COMPARISON_ROWS = [
   {
     item: '피톤치드 연무 탈취 서비스',
     premium: '무료 시공',
+    office: '요청 시 지원',
     standard: '옵션 선택',
     oneroom: '옵션 선택',
     storage: '무료 시공',
@@ -473,13 +552,13 @@ export const GALLERY_CASES: GalleryCase[] = [
   },
   {
     id: 'case-5',
-    title: '경주 공공기관 사무실 주말 일괄 이전 프로젝트',
+    title: '경주 관공서·학교 행정실 주말 일괄 이전 프로젝트',
     category: '기업·관공서',
     region: '경주시',
     route: '경주 성건동 구청사 → 현곡면 신청사',
     date: '2026.10.04',
     truckInfo: '5톤 탑차 3대 + 사다리차 2대',
-    crewInfo: '기업이전 전담 PM 외 12명',
+    crewInfo: '기업·관공서 전담 PM 외 12명',
     rating: 5.0,
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuBKBwczjX5Hk__AfC6GIXf-O0Rrk8KUmUNvZuOJB_ZXG--QK-ODUroLIfAPPpaW7_PVCAmIf2F8h8Q0wrGsDhzLKF5utSFKsqBh3ObbQbxzYdY9HzM9-cxxX3fvWtdwSCeoq0_BCWr48H5UIrtHr5Igv3kMMr5azOGwxe203blN06c8F9inCBNh9qPB5CLJAEPRlL3Dtwv0HT19UxfH0eOBDwwfJZzlwCSNcCLoUEtd',
@@ -519,7 +598,7 @@ export const GALLERY_CASES: GalleryCase[] = [
   },
   {
     id: 'case-7',
-    title: '울진읍 주공·신축 아파트 장거리 포장이사',
+    title: '울진읍 사택·신축 아파트 장거리 포장이사',
     category: '가정포장이사',
     region: '울진군',
     route: '울진군 울진읍 → 포항 북구 양덕동',
@@ -630,8 +709,8 @@ export const INITIAL_REVIEWS: CustomerReview[] = [
     id: 'rev-6',
     route: '경주 성건동 → 현곡면 신청사',
     region: '경주시',
-    serviceType: '기업·관공서 이사',
-    headline: '"주말 이틀 만에 60명 규모 사무실 완벽 세팅"',
+    serviceType: '관공서·학교·기업 이사',
+    headline: '"주말 이틀 만에 60명 규모 관공서 청사 완벽 세팅"',
     content:
       '세금계산서 처리부터 여성기업 증빙 서류까지 빠짐없이 챙겨주시고 PC·모니터 파손 0건으로 월요일 바로 업무를 볼 수 있었습니다.',
     author: '경주 행정지원팀',
@@ -646,71 +725,115 @@ export const BRANCH_LOCATIONS: BranchInfo[] = [
     name: '예스이사 포항 본사 직영센터',
     badge: '본사 및 통합 관제센터',
     address: '경상북도 포항시 북구 흥해읍 달전로 24',
-    coverage: ['포항시 북구 전역 (흥해·초곡·양덕·장성·두호)', '포항시 남구 전역 (이동·지곡·효자·오천·문덕)', '구룡포·연일·청하·기계'],
+    coverage: [
+      '포항시 북구 전역 (흥해·초곡·양덕·장성·두호)',
+      '포항시 남구 전역 (이동·지곡·효자·오천·문덕)',
+      '구룡포·연일·청하·기계',
+    ],
     dispatchTime: '접수 후 당일 30분 내 방문 실측 가능',
     phone: '1688-0450',
     directPhone: '010-5608-2424',
     hours: '365일 연중무휴 08:00 ~ 20:00',
     description:
       '포항IC와 흥해 우회도로가 만나는 교통 요충지에 위치하여 포항 전지역은 물론 경주·영덕·울진 전역으로 직영 탑차 및 사다리차가 신속히 출동하는 핵심 본부입니다.',
-    facilities: ['1톤~5톤 최신 밀폐 탑차 전용 차고지', '2층~25층 직영 사다리차 상시 대기', '항온·항습 실내 컨테이너 보관 창고동 완비'],
-    directionsCar: '포항IC 진입 후 흥해읍 방면 7번 국도 달전교차로 우회전 300m (대형 주차장 완비)',
-    directionsTransit: '포항시내버스 500번·107번 달전리 정류장 하차 도보 4분 / KTX 포항역 차량 8분',
+    facilities: [
+      '1톤~5톤 최신 밀폐 탑차 전용 차고지',
+      '2층~25층 직영 사다리차 상시 대기',
+      '항온·항습 실내 컨테이너 보관 창고동 완비',
+    ],
+    directionsCar:
+      '포항IC 진입 후 흥해읍 방면 7번 국도 달전교차로 우회전 300m (대형 주차장 완비)',
+    directionsTransit:
+      '포항시내버스 500번·107번 달전리 정류장 하차 도보 4분 / KTX 포항역 차량 8분',
     naverMapQuery: '경상북도 포항시 북구 흥해읍 달전로 24',
     kakaoMapQuery: '경상북도 포항시 북구 흥해읍 달전로 24',
+    googleMapQuery: '경상북도 포항시 북구 흥해읍 달전로 24',
   },
   {
     id: 'gyeongju',
     name: '예스이사 경주 직영지사',
     badge: '경주권 전담 직영망',
     address: '경상북도 경주시 황성동·용강동 연계 직영 배차망 (본사 통합관제)',
-    coverage: ['경주시 시내 전역 (황성·용강·동천·성건)', '외동읍·안강읍·건천읍 산업단지 및 주거지', '보문·불국동·감포'],
+    coverage: [
+      '경주시 시내 전역 (황성·용강·동천·성건)',
+      '외동읍·안강읍·건천읍 산업단지 및 학교·관공서',
+      '보문·불국동·감포',
+    ],
     dispatchTime: '경주 전역 40분 내 방문 무료견적',
     phone: '1688-0450',
     directPhone: '054-251-1234',
     hours: '365일 연중무휴 08:00 ~ 20:00',
     description:
-      '경주시 신축 아파트 입주, 한옥·단독주택 이사, 산업단지 내 기업 및 연구소 사옥 이전을 전담하며 포항-경주 7번 국도 및 산업도로를 따라 추가 출장비 없이 직영 운행합니다.',
-    facilities: ['경주 시내권 좁은 골목 대응 1톤·2.5톤 특장차', '아파트 입주 전용 바닥·벽면 보양재 풀세트', '주말·공휴일 관공서 이전 전담 PM 배정'],
-    directionsCar: '경주 강동·안강 방면 7번 국도 및 포항-경주 간 20분 직통 연결망 운영',
-    directionsTransit: '신경주역·경주시청 권역 전담 견적 팀장 상시 순회 방문',
+      '경주시 신축 아파트 입주, 한옥·단독주택 이사, 관공서·학교 및 산업단지 내 기업 사옥 이전을 전담하며 포항-경주 7번 국도 및 산업도로를 따라 추가 출장비 없이 직영 운행합니다.',
+    facilities: [
+      '경주 시내권 좁은 골목 대응 1톤·2.5톤 특장차',
+      '아파트 입주 전용 바닥·벽면 보양재 풀세트',
+      '주말·공휴일 관공서·학교 이전 전담 PM 배정',
+    ],
+    directionsCar:
+      '경주 강동·안강 방면 7번 국도 및 포항-경주 간 20분 직통 연결망 운영',
+    directionsTransit:
+      '신경주역·경주시청 권역 전담 견적 팀장 상시 순회 방문',
     naverMapQuery: '경상북도 경주시 황성동',
     kakaoMapQuery: '경상북도 경주시 황성동',
+    googleMapQuery: '경상북도 경주시 황성동',
   },
   {
     id: 'yeongdeok',
     name: '예스이사 영덕 직영출장소',
     badge: '동해안 중부권 직영',
     address: '경상북도 영덕군 영덕읍·강구면 일대 직영 출동',
-    coverage: ['영덕읍·강구면·남정면', '영해면·병곡면·축산면', '포항·울진 연계 장거리 이사'],
+    coverage: [
+      '영덕읍·강구면·남정면',
+      '영해면·병곡면·축산면',
+      '포항·울진 연계 장거리 이사',
+    ],
     dispatchTime: '사전 예약 시 당일·익일 무료 방문견적',
     phone: '1688-0450',
     directPhone: '010-5608-2424',
     hours: '365일 연중무휴 08:00 ~ 20:00',
     description:
-      '영덕군 단독주택·농어가 효도이사, 귀촌·전원주택 이사, 상가 및 관공서 이전을 전문으로 합니다. 포항 본사에서 30~40분 거리로 중간 알선 마진 없는 투명한 운임을 제공합니다.',
-    facilities: ['방풍·방수 특수 탑차 (해안가 강풍/우천 대비)', '장독대·화분·농기구 전용 완충 목재 받침 보유', '포항-영덕 고속도로 직통 급행 배차'],
-    directionsCar: '동해고속도로(포항-영덕) 및 7번 국도 강구항·영덕IC 10분 거리 연결',
-    directionsTransit: '영덕군 전 읍면 방문 실측 요청 시 포항 본사 팀장 무료 출장 방문',
+      '영덕군 단독주택·농어가 효도이사, 귀촌·전원주택 이사, 학교·관공서 및 상가 이전을 전문으로 합니다. 포항 본사에서 30~40분 거리로 중간 알선 마진 없는 투명한 운임을 제공합니다.',
+    facilities: [
+      '방풍·방수 특수 탑차 (해안가 강풍/우천 대비)',
+      '장독대·화분·농기구 전용 완충 목재 받침 보유',
+      '포항-영덕 고속도로 직통 급행 배차',
+    ],
+    directionsCar:
+      '동해고속도로(포항-영덕) 및 7번 국도 강구항·영덕IC 10분 거리 연결',
+    directionsTransit:
+      '영덕군 전 읍면 방문 실측 요청 시 포항 본사 팀장 무료 출장 방문',
     naverMapQuery: '경상북도 영덕군 영덕읍',
     kakaoMapQuery: '경상북도 영덕군 영덕읍',
+    googleMapQuery: '경상북도 영덕군 영덕읍',
   },
   {
     id: 'uljin',
     name: '예스이사 울진 직영출장소',
     badge: '경북 북부 동해안 전담',
     address: '경상북도 울진군 울진읍·죽변면·후포면 일대 직영 출동',
-    coverage: ['울진읍·죽변면 (한울원자력 사택 등)', '후포면·평해읍·근남면·매화면', '울진 ↔ 포항·대구·수도권 장거리 직통'],
+    coverage: [
+      '울진읍·죽변면 (한울원자력 사택 등)',
+      '후포면·평해읍·근남면·매화면',
+      '울진 ↔ 포항·대구·수도권 장거리 직통',
+    ],
     dispatchTime: '울진 전역 무료 방문견적 (예약제 순회 실측)',
     phone: '1688-0450',
     directPhone: '010-5608-2424',
     hours: '365일 연중무휴 08:00 ~ 20:00',
     description:
-      '울진 지역 한울본부 사택 이전, 공공기관 및 일반 가정 장거리 이사에 특화되어 있습니다. 에어 서스펜션 5톤 대형 탑차로 장거리 이동 시에도 깨지기 쉬운 식기·가전을 완벽하게 보호합니다.',
-    facilities: ['장거리 전용 5톤 무진동 에어 서스펜션 탑차', '보냉 아이스박스 2중 냉매 시스템', '원거리 고객 비대면 영상·전화 정밀 견적 병행'],
-    directionsCar: '7번 국도 울진-영덕-포항 전 구간 일일 상시 물류 회차 네트워크 가동',
-    directionsTransit: '울진읍 및 죽변·후포면 전화 예약 시 당일 또는 익일 견적 팀장 방문',
+      '울진 지역 한울본부 사택 이전, 관공서·학교 및 일반 가정 장거리 이사에 특화되어 있습니다. 에어 서스펜션 5톤 대형 탑차로 장거리 이동 시에도 깨지기 쉬운 식기·가전을 완벽하게 보호합니다.',
+    facilities: [
+      '장거리 전용 5톤 무진동 에어 서스펜션 탑차',
+      '보냉 아이스박스 2중 냉매 시스템',
+      '원거리 고객 비대면 영상·전화 정밀 견적 병행',
+    ],
+    directionsCar:
+      '7번 국도 울진-영덕-포항 전 구간 일일 상시 물류 회차 네트워크 가동',
+    directionsTransit:
+      '울진읍 및 죽변·후포면 전화 예약 시 당일 또는 익일 견적 팀장 방문',
     naverMapQuery: '경상북도 울진군 울진읍',
     kakaoMapQuery: '경상북도 울진군 울진읍',
+    googleMapQuery: '경상북도 울진군 울진읍',
   },
 ];

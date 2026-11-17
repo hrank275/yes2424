@@ -4,8 +4,29 @@ export type PageId =
   | 'moving-services'
   | 'auspicious-calendar'
   | 'work-gallery'
+  | 'board'
   | 'location-contact'
-  | 'instant-quote';
+  | 'instant-quote'
+  | 'admin';
+
+export type BoardCategory = '공지사항' | '고객후기' | 'FAQ' | '칼럼' | '자료실';
+
+export interface BoardPost {
+  id: string;
+  boardType: BoardCategory;
+  category: string;
+  title: string;
+  summary: string;
+  content: string[];
+  image: string;
+  fallbackImage?: string;
+  date: string;
+  author: string;
+  seoKeywords: string[];
+  isPublished: boolean;
+  isPinned?: boolean;
+  downloadText?: string;
+}
 
 export type MovingType =
   | '가정포장이사'
@@ -95,11 +116,16 @@ export interface BranchInfo {
   directionsTransit: string;
   naverMapQuery: string;
   kakaoMapQuery: string;
+  googleMapQuery: string;
 }
+
+export type InquiryStatus = '접수대기' | '상담완료' | '방문실측예정' | '계약확정';
 
 export interface QuoteSubmission {
   id: string;
   createdAt: string;
+  status: InquiryStatus;
+  source: '견적신청' | '방문상담예약' | '간편상담';
   movingType: MovingType;
   startRegion: RegionName;
   startDetail: string;
@@ -128,4 +154,11 @@ export interface QuotePrefill {
   startRegion?: RegionName;
   endRegion?: RegionName;
   homeSize?: HomeSize;
+}
+
+export interface FaqItem {
+  id: string;
+  category: '상담/견적' | '이사 비용' | '서비스/지역' | '예약/준비';
+  question: string;
+  answer: string;
 }

@@ -11,8 +11,8 @@ import {
   PiggyBank,
   Sparkles,
 } from 'lucide-react';
-import { COMPANY_INFO } from '../data/yesMovingData';
-import { PageId, QuotePrefill } from '../types';
+import { COMPANY_INFO, CORE_FAQS } from '../data/yesMovingData';
+import { BoardCategory, PageId, QuotePrefill } from '../types';
 import {
   formatSolarDateKey,
   getKoreanWeekdayLabel,
@@ -22,13 +22,20 @@ import {
 } from '../utils/lunarCalendar';
 
 interface AuspiciousCalendarPageProps {
-  onNavigate: (page: PageId, options?: { prefill?: QuotePrefill }) => void;
+  onNavigate: (
+    page: PageId,
+    options?: { prefill?: QuotePrefill; boardTab?: BoardCategory }
+  ) => void;
+  onOpenKakao?: () => void;
+  onTrackPhone?: () => void;
 }
 
 type CalendarFilter = 'all' | 'auspicious' | 'economy';
 
 export const AuspiciousCalendarPage: React.FC<AuspiciousCalendarPageProps> = ({
   onNavigate,
+  onOpenKakao,
+  onTrackPhone,
 }) => {
   const now = new Date();
   const [viewYear, setViewYear] = useState<number>(now.getFullYear());
@@ -113,12 +120,12 @@ export const AuspiciousCalendarPage: React.FC<AuspiciousCalendarPageProps> = ({
                 <span>전통 음력 기반 2026~2027 실시간 길일 안내</span>
               </div>
               <h1 className="text-3xl sm:text-4xl text-on-surface font-black tracking-tight mb-3">
-                손없는날 달력 & 이사 길일 예약
+                예스이사 예약하기 · 손없는날 달력
               </h1>
               <p className="text-sm sm:text-base text-slate-text-muted leading-relaxed">
-                음력 끝자리가 <strong className="text-on-surface">9일과 0일</strong>인 날은 악귀가
-                동서남북 어느 방향으로도 다니지 않는 길일입니다. 원하는 날짜를 선택해 배차 여유를
-                확인하고 바로 견적을 신청하세요.
+                음력 끝자리가 <strong className="text-on-surface">9일과 0일</strong>인 손없는날과
+                비용 절감에 유리한 평일 알뜰 추천일을 확인하세요. 날짜를 선택해 배차 여유를 보고
+                바로 예약·상담하실 수 있습니다.
               </p>
             </div>
 
@@ -407,13 +414,23 @@ export const AuspiciousCalendarPage: React.FC<AuspiciousCalendarPageProps> = ({
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
-                <a
-                  href={`tel:${COMPANY_INFO.phoneMain}`}
-                  className="w-full py-3 px-4 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface text-xs font-bold flex items-center justify-center gap-2 transition-colors tabular-nums"
-                >
-                  <Phone className="w-4 h-4 text-primary" />
-                  <span>{COMPANY_INFO.phoneMain} 전화로 배차 문의</span>
-                </a>
+                <div className="grid grid-cols-2 gap-2">
+                  <a
+                    href={`tel:${COMPANY_INFO.phoneMain}`}
+                    onClick={onTrackPhone}
+                    className="py-3 px-3 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface text-xs font-bold flex items-center justify-center gap-1.5 transition-colors tabular-nums"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-primary" />
+                    <span>{COMPANY_INFO.phoneMain} 전화</span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={onOpenKakao}
+                    className="py-3 px-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-on-surface text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <span>카카오톡 문의</span>
+                  </button>
+                </div>
               </div>
 
               {/* Monthly Auspicious Quick-Pick Summary */}
@@ -512,6 +529,33 @@ export const AuspiciousCalendarPage: React.FC<AuspiciousCalendarPageProps> = ({
                   </button>
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* Compact Calendar FAQ */}
+          <div className="mt-8 bg-surface-container-lowest rounded-2xl p-6 sm:p-8 border border-brand-border">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+              <div>
+                <div className="text-xs font-bold text-primary mb-1">예약 · 일정 안내</div>
+                <h2 className="text-xl font-black text-on-surface">
+                  손없는날 예약 및 모바일 신청 자주 묻는 질문
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => onNavigate('board', { boardTab: 'FAQ' })}
+                className="text-xs font-bold text-primary hover:underline cursor-pointer"
+              >
+                FAQ 전체보기 →
+              </button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {CORE_FAQS.filter((f) => f.id === 'faq-5' || f.id === 'faq-6').map((faq) => (
+                <div key={faq.id} className="p-4 rounded-xl bg-surface-container-low">
+                  <h3 className="text-sm font-bold text-on-surface mb-1.5">Q. {faq.question}</h3>
+                  <p className="text-xs text-slate-text-muted leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

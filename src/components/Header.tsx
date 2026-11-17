@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
-import { Calculator, Menu, Phone, X } from 'lucide-react';
+import { Menu, Phone, X } from 'lucide-react';
 import { COMPANY_INFO } from '../data/yesMovingData';
-import { PageId } from '../types';
+import { BoardCategory, PageId } from '../types';
 import { SafeImage } from './SafeImage';
 
 interface HeaderProps {
   activePage: PageId;
-  onNavigate: (page: PageId) => void;
+  onNavigate: (page: PageId, options?: { boardTab?: BoardCategory }) => void;
+  onTrackPhone: () => void;
 }
 
 const NAV_ITEMS: { id: PageId; label: string }[] = [
-  { id: 'home', label: '홈' },
-  { id: 'company-certification', label: '회사소개·공식인허가' },
-  { id: 'moving-services', label: '이사서비스안내' },
-  { id: 'auspicious-calendar', label: '손없는날 달력' },
-  { id: 'work-gallery', label: '갤러리·작업현장' },
-  { id: 'location-contact', label: '오시는길' },
+  { id: 'home', label: '메인' },
+  { id: 'company-certification', label: '회사소개' },
+  { id: 'moving-services', label: '서비스 소개' },
+  { id: 'auspicious-calendar', label: '예약하기' },
+  { id: 'work-gallery', label: '갤러리' },
+  { id: 'board', label: '고객후기·게시판' },
+  { id: 'location-contact', label: '오시는 길' },
 ];
 
-export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
+export const Header: React.FC<HeaderProps> = ({
+  activePage,
+  onNavigate,
+  onTrackPhone,
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleNavClick = (page: PageId) => {
@@ -28,7 +34,7 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-md border-b border-brand-border/70">
-      <div className="h-18 sm:h-20 max-w-[1200px] mx-auto px-4 lg:px-6 flex items-center justify-between gap-4 lg:gap-8">
+      <div className="h-16 sm:h-20 max-w-[1200px] mx-auto px-4 lg:px-6 flex items-center justify-between gap-4 lg:gap-8">
         {/* Zone 1: Clean Brand Wordmark */}
         <button
           type="button"
@@ -38,10 +44,10 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
           <SafeImage
             src={COMPANY_INFO.logoUrl}
             alt="예스이사 공식 로고"
-            className="w-9 h-9 rounded-full object-cover shadow-sm"
+            className="h-11 sm:h-12 w-auto rounded-lg object-contain bg-white px-1.5 py-0.5 border border-brand-border/60 shadow-xs"
             fallbackLabel="예스이사"
           />
-          <span className="text-xl font-black text-primary tracking-tight whitespace-nowrap shrink-0">
+          <span className="text-lg sm:text-xl font-black text-primary tracking-tight whitespace-nowrap shrink-0">
             {COMPANY_INFO.name}
           </span>
         </button>
@@ -75,6 +81,7 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
         <div className="flex items-center gap-2.5 shrink-0">
           <a
             href={`tel:${COMPANY_INFO.phoneMain}`}
+            onClick={onTrackPhone}
             className="hidden xl:inline-flex items-center gap-1.5 text-sm font-extrabold text-on-surface hover:text-primary transition-colors whitespace-nowrap shrink-0 tabular-nums mr-1"
           >
             <Phone className="w-4 h-4 text-primary" />
@@ -90,8 +97,7 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
                 : 'bg-primary hover:bg-primary-container text-on-primary'
             }`}
           >
-            <Calculator className="w-4 h-4 mr-1.5 shrink-0" />
-            <span>실시간 무료견적</span>
+            <span>상담신청</span>
           </button>
 
           <button
@@ -99,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-label={mobileMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
             aria-expanded={mobileMenuOpen}
-            className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer"
+            className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -127,10 +133,33 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
                 </button>
               );
             })}
+            <button
+              type="button"
+              onClick={() => handleNavClick('instant-quote')}
+              className={`w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-colors cursor-pointer ${
+                activePage === 'instant-quote'
+                  ? 'bg-primary/10 text-primary font-bold'
+                  : 'text-on-surface hover:bg-surface-container-low'
+              }`}
+            >
+              상담신청 (무료견적)
+            </button>
+            <button
+              type="button"
+              onClick={() => handleNavClick('admin')}
+              className={`w-full text-left px-4 py-3 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                activePage === 'admin'
+                  ? 'bg-primary/10 text-primary font-bold'
+                  : 'text-slate-text-muted hover:bg-surface-container-low'
+              }`}
+            >
+              관리자 운영 콘솔
+            </button>
             <div className="mt-3 pt-3 border-t border-brand-border flex items-center justify-between px-2">
               <span className="text-xs text-slate-text-muted">365일 무료 방문견적 상담</span>
               <a
                 href={`tel:${COMPANY_INFO.phoneMain}`}
+                onClick={onTrackPhone}
                 className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container text-sm font-extrabold text-primary tabular-nums"
               >
                 <Phone className="w-4 h-4" />
